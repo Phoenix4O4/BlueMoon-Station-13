@@ -294,6 +294,7 @@ GLOBAL_VAR_INIT(nt_fax_department, pick("NT HR Department", "NT Legal Department
 			log_fax(fax_paper, params["id"], params["name"])
 			loaded_item_ref = null
 			update_appearance()
+			send2adminchat("Sent a fax message from [fax_name]/[fax_id] to [html_encode(params["name"])] with the following message: [fax_paper.get_raw_text()]")
 
 		if("history_clear")
 			history_clear()
