@@ -44,6 +44,7 @@
 	var/moduleselect_alternate_icon
 	var/dogborg = FALSE
 	var/hasrest = FALSE //For the new borgs who are not dogs
+	var/drakerest = FALSE //For the new drakemech resting icons
 
 /obj/item/robot_module/Initialize(mapload)
 	. = ..()
@@ -379,19 +380,20 @@
 		"Borgi" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "borgi-medi-b"), // SPLURT Adoon (Skyrat Port)
 		"Drake" = image(icon = 'modular_sand/icons/mob/cyborg/drakemech.dmi', icon_state = "drakemedbox"),
 		"Fembot" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi', icon_state = "fembot-medic"), //Gardelin0 Addon
-		"Meka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mekamed"), //Krashly Request
 		"Assaultron" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "assaultron_medical"), // SPLURT Addon
-		"FMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "fmekamed"), // Lyoll Request (Skyrat Port)
-		"K4" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tmed"), // Lyoll Request (Skyrat Port)
-		"K4 Alt" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tmed_alt1"), // Lyoll Request (Skyrat Port)
-		"MMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mmekamed"), // Lyoll Request (Skyrat Port)
 		"Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekamed"), // SPLURT Addon
+		"Meka (alt)" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekamed_alt"), // SPLURT Addon (Bubbers Port)
+		"M-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mmekamed"), // SPLURT Addon (Bubbers Port)
+		"F-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "fmekamed"), // SPLURT Addon (Bubbers Port)
+		"K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tmed"), // SPLURT Addon (Bubbers Port)
+		"K4T (alt)" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tmed_alt1"), // SPLURT Addon (Bubbers Port)
 		"Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixmed-b"), // SPLURT Addon (ChompS Port)
 		"Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "medraptor-b"), // SPLURT Addon (ChompS Port)
 		"Raptor V-4 (alt)" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "traumaraptor-b"), // SPLURT Addon (ChompS Port)
 		"Handy" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "handy_medical"), // SPLURT Addon (Fallout 13)
 		"SmollRaptor" = image(icon = 'modular_zubbers/icons/mob/smolraptor.dmi', icon_state = "smolraptor_med-b"), // BubberStation Port; Made by aKhro/@aKromatopzia (GitHub)
-		"Mechoid" = image(icon = 'modular_bluemoon/leesuro/icons/mob/widerobot_mechoid.dmi', icon_state = "wide-mechoid-medical") // Danaiyka request
+		"Mechoid" = image(icon = 'modular_bluemoon/leesuro/icons/mob/widerobot_mechoid.dmi', icon_state = "wide-mechoid-medical"), // Danaiyka request
+		"DrakeTrauma" = image(icon = 'modular_sand/icons/mob/cyborg/drakemech.dmi', icon_state = "draketraumabox")	//DarkSer request by Gardelin0
 		)
 		var/list/L = list("Medihound" = "medihound", "Medihound Dark" = "medihounddark", "Vale" = "valemed")
 		for(var/a in L)
@@ -518,13 +520,10 @@
 			moduleselect_icon = "medihound"
 			moduleselect_alternate_icon = 'modular_citadel/icons/ui/screen_cyborg.dmi'
 			dogborg = TRUE
+			drakerest = TRUE
 		if("Fembot") // //Gardelin0 Addon
 			cyborg_base_icon = "fembot-medic"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi'
-		if("Meka") //Krashly Request
-			cyborg_base_icon = "mekamed"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
 		if("Assaultron") // SPLURT Addon (Hyper Port)
 			cyborg_base_icon = "assaultron_medical"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots.dmi'
@@ -533,21 +532,31 @@
 			cyborg_base_icon = "mekamed"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
 			hat_offset = 3
-		if("FMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "fmekamed"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
 			hasrest = TRUE
-		if("K4") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tmed"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
+		if("Meka (alt)")
+			cyborg_base_icon = "mekamed_alt"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
 			hasrest = TRUE
-		if("K4 Alt") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tmed_alt1"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("MMeka") //Lyoll Request (Skyrat Port)
+		if("M-Meka")
 			cyborg_base_icon = "mmekamed"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("F-Meka")
+			cyborg_base_icon = "fmekamed"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("K4T")
+			cyborg_base_icon = "k4tmed"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("K4T (alt)")
+			cyborg_base_icon = "k4tmed_alt1"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
 			hasrest = TRUE
 		if("Feline") // SPLURT Addon (Chomp Port)
 			cyborg_base_icon = "vixmed"
@@ -581,6 +590,14 @@
 			moduleselect_icon = "medihound"
 			moduleselect_alternate_icon = 'modular_citadel/icons/ui/screen_cyborg.dmi'
 			dogborg = TRUE
+		if("DrakeTrauma") // Dergborg brought to you by Navier#1236 | Skyrat | Commissioned Artist: deviantart.com/mizartz
+			cyborg_base_icon = "draketrauma"
+			cyborg_icon_override = 'modular_sand/icons/mob/cyborg/drakemech.dmi'
+			sleeper_overlay = "drakemedsleeper"
+			moduleselect_icon = "medihound"
+			moduleselect_alternate_icon = 'modular_citadel/icons/ui/screen_cyborg.dmi'
+			dogborg = TRUE
+			drakerest = TRUE
 		else
 			return FALSE
 	return ..()
@@ -657,10 +674,12 @@
 		"Fembot" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi', icon_state = "fembot-engineering"), //Gardelin0 Addon
 		"Meka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mekaengi"), //Krashly Request
 		"Assaultron" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "assaultron_engi"), // SPLURT Addon
-		"FMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "fmekaeng"), // Lyoll Request (Skyrat Port)
-		"K4" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tengi"), // Lyoll Request (Skyrat Port)
-		"K4 Alt" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tengi_alt1"), // Lyoll Request (Skyrat Port)
-		"MMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mmekaeng"), // Lyoll Request (Skyrat Port)
+		"Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekaengi"), // SPLURT Addon
+		"Meka (alt)" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekaengi_alt"), // SPLURT Addon (Bubbers Port)
+		"M-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mmekaeng"), // SPLURT Addon (Bubbers Port)
+		"F-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "fmekaeng"), // SPLURT Addon (Bubbers Port)
+		"K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tengi"), // SPLURT Addon (Bubbers Port)
+		"K4T (alt)" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tengi_alt1"), // SPLURT Addon (Bubbers Port)
 		"Haydee" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "haydeeengi"), // SPLURT Addon
 		"Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixengi-b"), // SPLURT Addon (ChompS Port)
 		"Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "engiraptor-b"), // SPLURT Addon (ChompS Port)
@@ -793,6 +812,7 @@
 			cyborg_icon_override = 'modular_sand/icons/mob/cyborg/drakemech.dmi'
 			sleeper_overlay = "drakesecsleeper"
 			dogborg = TRUE
+			drakerest = TRUE
 		if("Fembot") // //Gardelin0 Addon
 			cyborg_base_icon = "fembot-engineering"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi'
@@ -809,26 +829,35 @@
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
 			hat_offset = 3
 			hasrest = TRUE
+		if("Meka (alt)")
+			cyborg_base_icon = "mekaengi_alt"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("M-Meka")
+			cyborg_base_icon = "mmekaeng"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("F-Meka")
+			cyborg_base_icon = "fmekaeng"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("K4T")
+			cyborg_base_icon = "k4tengi"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("K4T (alt)")
+			cyborg_base_icon = "k4tengi_alt1"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
 		if("Haydee") // SPLURT Addon
 			cyborg_base_icon = "haydeeengi"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots.dmi'
 			hat_offset = 3
-		if("FMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "fmekaeng"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("K4") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tengi"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("K4 Alt") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tengi_alt1"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("MMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "mmekaeng"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
 		if("Feline") // SPLURT Addon (ChompS Port)
 			cyborg_base_icon = "vixengi"
 			cyborg_icon_override = 'modular_splurt/icons/mob/widerobot.dmi'
@@ -907,10 +936,11 @@
 		"Drake" = image(icon = 'modular_sand/icons/mob/cyborg/drakemech.dmi', icon_state = "drakesecbox"),
 		"Fembot" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi', icon_state = "fembot-security"), //Gardelin0 Addon
 		"Assaultron" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "assaultron_sec"), // SPLURT Addon
+		"Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekasec"), // SPLURT Addon (Bubbers Port)
+		"M-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mmekasec"), // SPLURT Addon (Bubbers Port)
+		"F-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "fmekasec"), // SPLURT Addon (Bubbers Port)
+		"K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tsec"), // SPLURT Addon (Bubbers Port)
 		"Haydee" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "haydeesec"), // SPLURT Addon
-		"FMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "fmekasec"), // Lyoll Request (Skyrat Port)
-		"K4" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tsec"), // Lyoll Request (Skyrat Port)
-		"MMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mmekasec"), // Lyoll Request (Skyrat Port)
 		"Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixsec-b"), // SPLURT Addon (ChompS Port)
 		"Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "secraptor-b"), // SPLURT Addon (ChompS Port)
 		"Handy" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "handy_security"), // SPLURT Addon (Fallout 13)
@@ -1057,6 +1087,7 @@
 			sleeper_overlay = "drakesecsleeper"
 			cyborg_icon_override = 'modular_sand/icons/mob/cyborg/drakemech.dmi'
 			dogborg = TRUE
+			drakerest = TRUE
 		if("Fembot") // //Gardelin0 Addon
 			cyborg_base_icon = "fembot-security"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi'
@@ -1064,22 +1095,26 @@
 			cyborg_base_icon = "assaultron_sec"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots.dmi'
 			hat_offset = 3
+		if("Meka")
+			cyborg_base_icon = "mekasec"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+		if("M-Meka")
+			cyborg_base_icon = "mmekasec"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+		if("F-Meka")
+			cyborg_base_icon = "fmekasec"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+		if("K4T")
+			cyborg_base_icon = "k4tsec"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
 		if("Haydee") // SPLURT Addon
 			cyborg_base_icon = "haydeesec"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots.dmi'
 			hat_offset = 3
-		if("FMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "fmekasec"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("K4") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tsec"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("MMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "mmekasec"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
 		if("Feline") // SPLURT Addon (ChompS Port)
 			cyborg_base_icon = "vixsec"
 			sleeper_overlay = "vixsec-sleeper"
@@ -1157,13 +1192,12 @@
 		"Drake" = image(icon = 'modular_sand/icons/mob/cyborg/drakemech.dmi', icon_state = "drakepeacebox"),
 
 		"Fembot" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi', icon_state = "fembot-peace"), //Gardelin0 Addon
-		"Meka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mekacargo"), //Krashly Request
 		"Assaultron" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "assaultron_peacekeeper"), // SPLURT Adoon
 		"Haydee" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "haydeepk"), // SPLURT Addon
-		"FMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "fmekapeace"), // Lyoll Request (Skyrat Port)
-		"K4" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tpeace"), // Lyoll Request (Skyrat Port)
-		"MMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mmekapeace"), // Lyoll Request (Skyrat Port)
 		"Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekapeace"), // SPLURT Addon
+		"M-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mmekapeace"), // SPLURT Addon
+		"F-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "fmekapeace"), // SPLURT Addon
+		"K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tpeace"), // SPLURT Addon
 		"Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixpk-b"), // SPLURT Addon (ChompS Port)
 		"Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "peaceraptor-b"), // SPLURT Addon (ChompS Port)
 		"SmollRaptor" = image(icon = 'modular_zubbers/icons/mob/smolraptor.dmi', icon_state = "smolraptor_pk-b"), // BubberStation Port; Made by aKhro/@aKromatopzia (GitHub)
@@ -1229,13 +1263,10 @@
 			sleeper_overlay = "drakepeacesleeper"
 			cyborg_icon_override = 'modular_sand/icons/mob/cyborg/drakemech.dmi'
 			dogborg = TRUE
+			drakerest = TRUE
 		if("Fembot") // //Gardelin0 Addon
 			cyborg_base_icon = "fembot-peace"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi'
-		if("Meka") //Krashly Request
-			cyborg_base_icon = "mekapeace"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
 		if("Assaultron") // SPLURT Addon
 			cyborg_base_icon = "assaultron_peacekeeper"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots.dmi'
@@ -1248,19 +1279,22 @@
 			cyborg_base_icon = "mekapeace"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
 			hat_offset = 3
-		if("FMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "fmekapeace"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("K4") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tpeace"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("MMeka") //Lyoll Request (Skyrat Port)
+		if("M-Meka")
 			cyborg_base_icon = "mmekapeace"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
 			hasrest = TRUE
-		if("Feline")
+		if("F-Meka")
+			cyborg_base_icon = "fmekapeace"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("K4T")
+			cyborg_base_icon = "k4tpeace"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("Feline") // SPLURT Addon (ChompS Port)
 			cyborg_base_icon = "vixpk"
 			cyborg_icon_override = 'modular_splurt/icons/mob/widerobot.dmi'
 			sleeper_overlay = "vixpk-sleeper"
@@ -1394,8 +1428,11 @@
 		"(Service) BootyS" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "bootyserviceS"), // SPLURT Addon (Hyper Port)
 		"(Service) K69" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "k69-b"), // SPLURT Addon (Skyrat Port) // The Cursed One
 		"(Service) Borgi" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "borgi-serv-b"), // SPLURT Addon (Skyrat Port)
-		"(Service) Fembot" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi', icon_state = "fembot-service"), //Gardelin0 Addon
-		"(Service) Meka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mekaserve"), //Krashly Request
+		"(Service) Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekaserve"), // SPLURT Addon
+		"(Service) M-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mmekaserv"), // SPLURT Addon
+		"(Service) F-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "fmekaserv"), // SPLURT Addon
+		"(Service) K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tserve"), // SPLURT Addon
+		"(Service Alt) K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tserve_alt1"), // SPLURT Addon
 		"(Service) Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixserv-b"), // SPLURT Addon (ChompS Port)
 		"(Service) Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "serviraptor-b"), // SPLURT Addon (ChompS Port)
 		"(Fancy) Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "fancyraptor-b"), // SPLURT Addon (ChompS Port)
@@ -1420,12 +1457,15 @@
 		"(Janitor) Borgi" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "borgi-jani-b"), // SPLURT Addon (Skyrat Port)
 		"(Janitor) Otie" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "otiej-b"), // SPLURT Addon (Skyrat Port)
 		"(Janitor) Ratge" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/ratge.dmi', icon_state = "ratge"), //CassiusRogue Request
-		"(Janitor) Meka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mekajani"), //Krashly Request
 		"(Janitor) Fembot" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "fembot-service"), // SPLURT Addon
 		"(Janitor) Drake" = image(icon = 'modular_sand/icons/mob/cyborg/drakemech.dmi', icon_state = "drakejanitbox"),
 		"Assaultron" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "assaultron_service"), // SPLURT Addon
 		"(Janitor) Haydee" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "haydeejan"), // SPLURT Addon
 		"(Janitor) Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekajani"), // SPLURT Addon
+		"(Janitor) M-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mmekajani"), // SPLURT Addon
+		"(Janitor) F-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "fmekajani"), // SPLURT Addon
+		"(Janitor) K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tjani"), // SPLURT Addon
+		"(Janitor Alt) K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tjani_alt1"), // SPLURT Addon
 		"(Janitor) Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixjani-b"), // SPLURT Addon (ChompS Port)
 		"(Janitor Alt) Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixsci-b"), // SPLURT Addon (ChompS Port)
 		"(Janitor) Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "janiraptor-b"), // SPLURT Addon (ChompS Port)
@@ -1433,14 +1473,6 @@
 		"(Janitor) SmollRaptor" = image(icon = 'modular_zubbers/icons/mob/smolraptor.dmi', icon_state = "smolraptor_jani-b"), // BubberStation Port; Made by aKhro/@aKromatopzia (GitHub)
 		"(Janitor Alt) SmollRaptor" = image(icon = 'modular_zubbers/icons/mob/smolraptor.dmi', icon_state = "smolraptor_sci-b"), // BubberStation Port; Made by aKhro/@aKromatopzia (GitHub)
 		"(Waiter) Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekaserve_alt"), // SPLURT Addon
-		"(Service) FMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "fmekaserv"), // Lyoll Request (Skyrat Port)
-		"(Service) K4" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tserve"), // Lyoll Request (Skyrat Port)
-		"(Service) K4 Alt" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tserve_alt1"), // Lyoll Request (Skyrat Port)
-		"(Service) MMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mmekaserv"), // Lyoll Request (Skyrat Port)
-		"(Janitor) FMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "fmekajani"), // Lyoll Request (Skyrat Port)
-		"(Janitor) K4" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tjani"), // Lyoll Request (Skyrat Port)
-		"(Janitor) K4 Alt" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tjani_alt1"), // Lyoll Request (Skyrat Port)
-		"(Janitor) MMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mmekajani"), // Lyoll Request (Skyrat Port)
 		"(Service) Handy" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "handy_service"), // SPLURT Addon (Fallout 13)
 		"(Janitor) Handy" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "handy_janitor"), // SPLURT Addon (Fallout 13)
 		"(Pleasure) Handy" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "handy_pleasure"), // SPLURT Addon (Fallout 13)
@@ -1547,10 +1579,24 @@
 		if("(Service) Fembot") // //Gardelin0 Addon
 			cyborg_base_icon = "fembot-service"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi'
-		if("(Service) Meka") //Krashly Request
-			cyborg_base_icon = "mekaserve"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
+		if("(Service) M-Meka")
+			cyborg_base_icon = "mmekaserv"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
 			hasrest = TRUE
+		if("(Service) F-Meka")
+			cyborg_base_icon = "fmekaserv"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("(Service) K4T")
+			cyborg_base_icon = "k4tserve"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("(Service Alt) K4T")
+			cyborg_base_icon = "k4tserve_alt1"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
 			hat_offset = 3
 			hasrest = TRUE
 		if("(Service) Feline") // SPLURT Addon (ChompS Port)
@@ -1662,16 +1708,13 @@
 			cyborg_icon_override = 'modular_sand/icons/mob/cyborg/drakemech.dmi'
 			sleeper_overlay = "drakesecsleeper"
 			dogborg = TRUE
+			drakerest = TRUE
 		if("(Janitor) Fembot") // //Gardelin0 Addon
 			cyborg_base_icon = "fembot-janitor"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi'
 		if("(Janitor) Ratge") // //CassiusRogue request
 			cyborg_base_icon = "ratge"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/ratge.dmi'
-			hasrest = TRUE
-		if("(Janitor) Meka") //Krashly Request
-			cyborg_base_icon = "mekajani"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
 			hasrest = TRUE
 		if("Assaultron") // SPLURT Addon
 			cyborg_base_icon = "assaultron_service"
@@ -1683,6 +1726,26 @@
 			hat_offset = 3
 		if("(Janitor) Meka")
 			cyborg_base_icon = "mekajani"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("(Janitor) M-Meka")
+			cyborg_base_icon = "mmekajani"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("(Janitor) F-Meka")
+			cyborg_base_icon = "fmekajani"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("(Janitor) K4T")
+			cyborg_base_icon = "k4tjani"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("(Janitor Alt) K4T")
+			cyborg_base_icon = "k4tjani_alt1"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
 			hat_offset = 3
 			hasrest = TRUE
@@ -1718,38 +1781,6 @@
 			cyborg_base_icon = "mekaserve_alt"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
 			hat_offset = 3
-			hasrest = TRUE
-		if("(Service) FMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "fmekaserv"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("(Service) K4") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tserve"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("(Service) K4 Alt") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tserve_alt1"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("(Service) MMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "mmekaserv"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("(Janitor) FMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "fmekajani"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("(Janitor) K4") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tjani"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("(Janitor) K4 Alt") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tjani_alt1"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("(Janitor) MMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "mmekajani"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
 			hasrest = TRUE
 		if("(Pleasure) Handy") // SPLURT Addon (Fallout 13)
 			cyborg_base_icon = "handy_pleasure"
@@ -1829,14 +1860,14 @@
 		"Otie" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "otiec-b"), // SPLURT Adoon (Skyrat Port)
 		"Drake" = image(icon = 'modular_sand/icons/mob/cyborg/drakemech.dmi', icon_state = "drakeminebox"),
 		"Fembot" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi', icon_state = "fembot-miner"), //Gardelin0 Addon
-		"Meka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mekamine"), //Krashly Request
 		"Assaultron" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "assaultron_mining"), // SPLURT
 		"Haydee" = image(icon = 'modular_splurt/icons/mob/robots.dmi', icon_state = "haydeeminer"), // SPLURT Addon
-		"FMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "fmekamine"), // Lyoll Request (Skyrat Port)
-		"K4" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tmine"), // Lyoll Request (Skyrat Port)
-		"K4 Alt" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "k4tmine_alt1"), // Lyoll Request (Skyrat Port)
-		"MMeka" = image(icon = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi', icon_state = "mmekamine"), // Lyoll Request (Skyrat Port)
 		"Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekamine"), // SPLURT Addon
+		"Meka (alt)" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mekamine_alt"), // SPLURT Addon
+		"M-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "mmekamine"), // SPLURT Addon
+		"F-Meka" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "fmekamine"), // SPLURT Addon
+		"K4T" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tmine"), // SPLURT Addon
+		"K4T (alt)" = image(icon = 'modular_splurt/icons/mob/robots_32x64.dmi', icon_state = "k4tmine_alt1"), // SPLURT Addon
 		"Feline" = image(icon = 'modular_splurt/icons/mob/widerobot.dmi', icon_state = "vixmine-b"), // SPLURT Adoon (ChompS Port)
 		"Raptor V-4" = image(icon = 'modular_splurt/icons/mob/robots_64x45.dmi', icon_state = "mineraptor-b"), // SPLURT Adoon (ChompS Port)
 		"Mechoid" = image(icon = 'modular_bluemoon/leesuro/icons/mob/widerobot_mechoid.dmi', icon_state = "wide-mechoid-mining"), // Danaiyka request
@@ -1945,13 +1976,10 @@
 			cyborg_icon_override = 'modular_sand/icons/mob/cyborg/drakemech.dmi'
 			sleeper_overlay = "drakeminesleeper"
 			dogborg = TRUE
+			drakerest = TRUE
 		if("Fembot") // //Gardelin0 Addon
 			cyborg_base_icon = "fembot-miner"
 			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/robots.dmi'
-		if("Meka") //Krashly Request
-			cyborg_base_icon = "mekamine"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
 		if("Assaultron") // SPLURT Addon
 			cyborg_base_icon = "assaultron_mining"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots.dmi'
@@ -1964,22 +1992,32 @@
 			cyborg_base_icon = "mekamine"
 			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
 			hat_offset = 3
-		if("FMeka") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "fmekamine"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
+		if("Meka (alt)")
+			cyborg_base_icon = "mekamine_alt"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
 			hasrest = TRUE
-		if("K4") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tmine"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("K4 Alt") //Lyoll Request (Skyrat Port)
-			cyborg_base_icon = "k4tmine_alt1"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
-			hasrest = TRUE
-		if("MMeka") //Lyoll Request (Skyrat Port)
+		if("M-Meka")
 			cyborg_base_icon = "mmekamine"
-			cyborg_icon_override = 'modular_bluemoon/Gardelin0/icons/mob/tallrobot.dmi'
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
 			hasrest = TRUE
+		if("F-Meka")
+			cyborg_base_icon = "fmekamine"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("K4T")
+			cyborg_base_icon = "k4tmine"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("K4T (alt)")
+			cyborg_base_icon = "k4tmine_alt1"
+			cyborg_icon_override = 'modular_splurt/icons/mob/robots_32x64.dmi'
+			hat_offset = 3
+			hasrest = TRUE
+		if("Feline") // SPLURT Addon (ChompS Port)
 			cyborg_base_icon = "vixmine"
 			cyborg_icon_override = 'modular_splurt/icons/mob/widerobot.dmi'
 			sleeper_overlay = "vixmine-sleeper"

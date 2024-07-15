@@ -488,6 +488,7 @@
 	desc = "Боевой костюм, расчитаный на длительные сражения в космосе с превосходящими силами противника. После многолетних чисток целых секторов от пиратства, теперь заставляет многих нервно сглотнуть от одного своего вида."
 	icon_state = "hardsuit-ftu_combat"
 	item_state = "hardsuit-ftu_combat"
+	tail_state = "syndicate-winter"
 	mob_overlay_icon = 'modular_bluemoon/Ren/Icons/Mob/clothing.dmi'
 	icon = 'modular_bluemoon/Ren/Icons/Obj/cloth.dmi'
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/ftu
@@ -516,6 +517,7 @@
 	desc = "Стандартный инженерный костюм для технического обслуживания судов торгового флота."
 	icon_state = "hardsuit-odst"
 	item_state = "hardsuit-odst"
+	tail_state = "juggernaut"
 	mob_overlay_icon = 'modular_sand/icons/mob/clothing/suit.dmi'
 	icon = 'modular_bluemoon/Ren/Icons/Obj/cloth.dmi'
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/ftu
@@ -595,7 +597,7 @@
 		"Black" = list("icon_state" = "mittle_black"),
 		"Blank" = list("icon_state" = "mittle_blank"),
 	)
-
+///Баллистическая маска
 /obj/item/clothing/mask/gas/inteq
 	name = "Ballistic mask"
 	desc = "Чёрная маска из кевлара. Защитит тебя от осколков и опознания."
@@ -612,6 +614,85 @@
 	if(current_skin == "With balaclava")
 		mutantrace_variation = STYLE_MUZZLE
 		flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
+///Личный жетон
+/obj/item/clothing/accessory/indiv_number
+	desc = "Небольшой металлический жетон. На нём виднеется цифровой код, плата микрочипа с данными о владельце и немного свободного места для гравировки."
+	icon = 'modular_bluemoon/Ren/Icons/Obj/cloth.dmi'
+	mob_overlay_icon = 'modular_bluemoon/Ren/Icons/Mob/clothing.dmi'
+	lefthand_file = 'modular_bluemoon/Ren/Icons/Mob/inhand_l.dmi'
+	righthand_file = 'modular_bluemoon/Ren/Icons/Mob/inhand_r.dmi'
+	icon_state = "tag"
+	item_state = "tag"
+	obj_flags = UNIQUE_RENAME
+
+/obj/item/clothing/accessory/indiv_number/Initialize(mapload)
+	. = ..()
+	var/class = pickweight(list("<span class='danger'>ALEPH</span>" = 1, "<span class='hierophant_warning'>WAW</span>" = 2, "<span class='engradio'>HE</span>" = 6, "<span class='binarysay'>TETH</span>" = 12, "<span class='nicegreen'>ZAIN</span>" = 25))
+	name = "[rand(999)]-[class]/[rand(99)]"
+	if(class == "<span class='danger'>ALEPH</span>")
+		custom_price = 10000
+	if(class == "<span class='hierophant_warning'>WAW</span>")
+		custom_price = 5000
+	if(class == "<span class='engradio'>HE</span>")
+		custom_price = 3000
+	if(class == "<span class='binarysay'>TETH</span>")
+		custom_price = 1000
+	if(class == "<span class='nicegreen'>ZAIN</span>")
+		custom_price = 500
+//донат вещи
+/obj/item/clothing/under/syndicate/tacticool/satt
+	name = "SATT combat uniform"
+	desc = "High-quality clothes made of a mixture of fleece and cotton. The logo in the form of an eagle and the caption of the Strategic Assault Tactical Team are visible on the tag. If you inhale the smell, you can smell the slices of a war crime."
+	icon = 'modular_bluemoon/Ren/Icons/Obj/cloth.dmi'
+	mob_overlay_icon = 'modular_bluemoon/Ren/Icons/Mob/random_cloth/mob.dmi'
+	icon_state = "SATT_combatuniform"
+
+/obj/item/clothing/mask/gas/sechailer/syndicate/skull
+	name = "Skull half mask"
+	desc = "High-quality clothes made of a mixture of fleece and cotton. The logo in the form of an eagle and the caption of the Strategic Assault Tactical Team are visible on the tag. If you inhale the smell, you can smell the slices of a war crime."
+	actions_types = list(/datum/action/item_action/adjust)
+	icon_state = "SATT_skull_half_mask"
+	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	icon = 'modular_bluemoon/Ren/Icons/Obj/cloth.dmi'
+	mob_overlay_icon = 'modular_bluemoon/Ren/Icons/Mob/random_cloth/mob.dmi'
+
+/obj/item/storage/backpack/satt
+	name = "SATT backpack"
+	desc = "High-quality clothes made of a mixture of fleece and cotton. The logo in the form of an eagle and the caption of the Strategic Assault Tactical Team are visible on the tag. If you inhale the smell, you can smell the slices of a war crime."
+	icon_state = "SATT_backpack"
+	icon = 'modular_bluemoon/Ren/Icons/Obj/cloth.dmi'
+	mob_overlay_icon = 'modular_bluemoon/Ren/Icons/Mob/random_cloth/mob.dmi'
+
+/obj/item/clothing/accessory/dogtag
+	name = "SATT dogtag"
+	desc = "Таких жетонов много, но этот твой."
+	icon = 'modular_bluemoon/Ren/Icons/Obj/cloth.dmi'
+	mob_overlay_icon = 'modular_bluemoon/Ren/Icons/Mob/random_cloth/mob.dmi'
+	icon_state = "SATT_dogtag"
+	obj_flags = UNIQUE_RENAME
+
+/obj/item/modkit/at41
+	name = "AT41 Kit"
+	desc = "A modkit for making an WT into a AT41."
+	product = /obj/item/gun/ballistic/automatic/wt550/at41
+	fromitem = list(/obj/item/gun/ballistic/automatic/wt550)
+
+/obj/item/gun/ballistic/automatic/wt550/at41
+	name = "AT41"
+	desc = "A new life for old gun."
+	icon = 'modular_bluemoon/Ren/Icons/Obj/at41.dmi'
+	lefthand_file = 'modular_bluemoon/Ren/Icons/Mob/inhand_l.dmi'
+	righthand_file = 'modular_bluemoon/Ren/Icons/Mob/inhand_r.dmi'
+	icon_state = "SATT_AT41_ammo"
+	item_state = "SATT_AT41"
+	fire_sound = "modular_bluemoon/Ren/Sound/AT41_fire.ogg"
+
+/obj/item/gun/ballistic/automatic/wt550/at41/update_icon_state()
+	..()
+	if(magazine)
+		icon_state = "SATT_AT41_ammo"
+	else
+		icon_state = "SATT_AT41_noammo"
 
 ///Чулки чулки чулки блять
 /obj/item/clothing/underwear/socks/thigh/stockings/socks_garterbelt
