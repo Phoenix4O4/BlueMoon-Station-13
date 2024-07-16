@@ -554,6 +554,13 @@
 	ckeywhitelist = list("vulpshiro", "dolbajob", "ordinarylife", "leony24", "stgs", "lonofera", "z67", "oni3288", "allazarius", "devildeadspace", "enigma418")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
+/datum/gear/donator/bm/stunspear
+	name = "Stunspear Kit"
+	slot = ITEM_SLOT_BACKPACK
+	path = /obj/item/modkit/stunspear_kit
+	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "notlikeluls",  "kladmenuwu")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
 /datum/gear/donator/bm/harness
 	name = "Harness Armor Modification Kit"
 	slot = ITEM_SLOT_BACKPACK
@@ -698,21 +705,21 @@
 	name = "Gewehr-550 Kit"
 	slot = ITEM_SLOT_BACKPACK
 	path = /obj/item/modkit/gewehr550
-	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "NotLikeLuls")
+	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "notlikeluls",  "kladmenuwu")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
 /datum/gear/donator/bm/hwal2572_kit
 	name = "H-Wal-2572 Kit"
 	slot = ITEM_SLOT_BACKPACK
 	path = /obj/item/modkit/hwal2572
-	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "NotLikeLuls")
+	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "notlikeluls",  "kladmenuwu")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
 /datum/gear/donator/bm/karabiner_kit
 	name = "Karabiner-M13 Kit"
 	slot = ITEM_SLOT_BACKPACK
 	path = /obj/item/modkit/karabiner_kit
-	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "NotLikeLuls")
+	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "notlikeluls",  "kladmenuwu")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
 /datum/gear/donator/tacticool/satt
@@ -749,3 +756,17 @@
 	path = /obj/item/storage/backpack/satt
 	ckeywhitelist = list("allazarius")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
+/datum/gear/donator/bm/Frieren_skirt
+    name = "Frieren skirt"
+    slot = ITEM_SLOT_ICLOTHING
+    path = /obj/item/clothing/under/donator/bm/Frieren_skirt
+    ckeywhitelist = list("fedor1545")
+    subcategory = LOADOUT_SUBCATEGORIES_DON04
+
+/datum/gear/donator/bm/Prosecutor
+    name = "Prosecutor suit"
+    slot = ITEM_SLOT_ICLOTHING
+    path = /obj/item/clothing/under/donator/bm/Prosecutor_suit
+    ckeywhitelist = list("fedor1545", "berly12")
+    subcategory = LOADOUT_SUBCATEGORIES_DON04
