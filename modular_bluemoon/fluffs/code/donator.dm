@@ -132,21 +132,28 @@
 	name = "cerberus helmet"
 	slot = ITEM_SLOT_HEAD
 	path = /obj/item/clothing/head/donator/bm/cerberus_helmet
-	ckeywhitelist = list("krashly", "stgs", "dedmodo", "hazzi", "dolbajob", "snacksman")
+	ckeywhitelist = list("krashly", "stgs", "hazzi", "dolbajob")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
 /datum/gear/donator/bm/cerberus_suit
 	name = "cerberus suit"
 	slot = ITEM_SLOT_OCLOTHING
 	path = /obj/item/clothing/suit/donator/bm/cerberus_suit
-	ckeywhitelist = list("krashly", "stgs", "dedmodo", "hazzi", "dolbajob", "snacksman")
+	ckeywhitelist = list("krashly", "stgs", "hazzi", "dolbajob")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
 /datum/gear/donator/bm/censor_fem_suit
 	name = "censor suit"
 	slot = ITEM_SLOT_OCLOTHING
 	path = /obj/item/clothing/suit/donator/bm/censor_fem_suit
-	ckeywhitelist = list("krashly", "stgs", "dedmodo", "hazzi", "dolbajob", "snacksman")
+	ckeywhitelist = list("krashly", "stgs", "hazzi", "dolbajob")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
+/datum/gear/donator/bm/atam
+	name = "Atam"
+	slot = ITEM_SLOT_BACKPACK
+	path = /obj/item/toy/crayon/atam
+	ckeywhitelist = list("FoxedHuman")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
 /datum/gear/donator/bm/Friskis_Mask
@@ -315,6 +322,13 @@
 	slot = ITEM_SLOT_BACKPACK
 	path = /obj/item/clothing/accessory/ac_patch
 	ckeywhitelist = list("romontesque", "smol42", "oni3288", "allazarius", "mihana964", "hazzi", "discord980", "zetneskov", "NotLikeLuls")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
+/datum/gear/donator/bm/monolith_patch
+	name = "Monolith Patch"
+	slot = ITEM_SLOT_BACKPACK
+	path = /obj/item/clothing/accessory/monolith_patch
+	ckeywhitelist = list("irfish", "devildeadspace")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
 /datum/gear/donator/bm/SH_jacket
@@ -589,6 +603,27 @@
 	ckeywhitelist = list("n1ght1ngale")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
+/datum/gear/donator/bm/monolith_gloves
+	name = "Monolith Gloves"
+	slot = ITEM_SLOT_BACKPACK
+	path = /obj/item/clothing/gloves/fingerless/monolith_gloves
+	ckeywhitelist = list("irfish", "devildeadspace")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
+/datum/gear/donator/bm/monolith_armor
+	name = "Granite M1 Vest"
+	slot = ITEM_SLOT_OCLOTHING
+	path = /obj/item/clothing/suit/bm/monolith_armor
+	ckeywhitelist = list("irfish", "devildeadspace")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
+/datum/gear/donator/bm/monolith_uniform
+	name = " Granite M1 ''Monolith'' Uniform"
+	slot = ITEM_SLOT_ICLOTHING
+	path = /obj/item/clothing/under/donator/bm/monolith_uniform
+	ckeywhitelist = list("vulpshiro", "dolbajob", "stgs", "leony24", "sodastrike", "lonofera", "hellsinggc", "devildeadspace", "enigma418")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
 /datum/gear/donator/commissar_hat
 	name = "Commissar Hat"
 	slot = ITEM_SLOT_HEAD
@@ -722,6 +757,13 @@
 	ckeywhitelist = list("oni3288", "discord980", "mihana964", "romontesque", "enigma418", "smol42", "notlikeluls",  "kladmenuwu")
 	subcategory = LOADOUT_SUBCATEGORIES_DON02
 
+/datum/gear/donator/bm/rt46
+	name = "RT-46 The Tempest Kit"
+	slot = ITEM_SLOT_BACKPACK
+	path = /obj/item/modkit/rt46
+	ckeywhitelist = list("kladmenuwu")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
 /datum/gear/donator/tacticool/satt
 	name = "SATT combat uniform"
 	slot = ITEM_SLOT_ICLOTHING
@@ -770,3 +812,26 @@
     path = /obj/item/clothing/under/donator/bm/Prosecutor_suit
     ckeywhitelist = list("fedor1545", "berly12")
     subcategory = LOADOUT_SUBCATEGORIES_DON04
+
+
+/datum/gear/donator/bm/a46_kit
+	name = "A46 Kit"
+	slot = ITEM_SLOT_BACKPACK
+	path = /obj/item/modkit/a46
+	ckeywhitelist = list("nai1ten")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
+/datum/gear/donator/bm/ots18_kit
+	name = "OTs-18 Kit"
+	slot = ITEM_SLOT_BACKPACK
+	path = /obj/item/modkit/ots18
+	ckeywhitelist = list("nai1ten")
+	subcategory = LOADOUT_SUBCATEGORIES_DON02
+
+/datum/gear/donator/bm/rune_jacket
+    name = "Rune Jacket"
+    slot = ITEM_SLOT_OCLOTHING
+    path = /obj/item/clothing/suit/donator/bm/rune_jacket
+    ckeywhitelist = list("d0nald")
+    subcategory = LOADOUT_SUBCATEGORIES_DON02
+
