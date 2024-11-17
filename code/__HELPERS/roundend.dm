@@ -269,6 +269,7 @@
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
+	send_roundend_stats_tgs_message(popcount)
 
 	CHECK_TICK
 
@@ -910,3 +911,34 @@
 				return
 			qdel(query_update_everything_ranks)
 		qdel(query_check_everything_ranks)
+
+/datum/tgs_chat_embed/provider/author/glob
+	name = "Блюмун вещает"
+	icon_url = ""
+
+/datum/controller/subsystem/ticker/proc/send_roundend_stats_tgs_message(popcount)
+	var/num_survivors = popcount[POPCOUNT_SURVIVORS]
+	var/num_deads = popcount[POPCOUNT_DEADS]
+	var/num_escapees = popcount[POPCOUNT_ESCAPEES]
+	var/num_shuttle_escapees = popcount[POPCOUNT_SHUTTLE_ESCAPEES]
+	var/num_another_escapees = popcount[POPCOUNT_ANOTHER_ESCAPEES]
+	var/station_integrity = popcount["station_integrity"]
+
+	var/datum/tgs_message_content/message = new("Статистика раунда")
+	var/datum/tgs_chat_embed/structure/embed = new()
+	message.embed = embed
+	embed.author = new /datum/tgs_chat_embed/provider/author/glob()
+	embed.title = "Статистика окончания раунда"
+	embed.description = "Статистика по завершённому раунду:"
+	embed.colour = "#f19a37"
+
+	var/datum/tgs_chat_embed/field/survivors_field = new("Выжившие", "[num_survivors]")
+	var/datum/tgs_chat_embed/field/deads_field = new("Погибшие", "[num_deads]")
+	var/datum/tgs_chat_embed/field/escapees_field = new("Эвакуировавшиеся", "[num_escapees]")
+	var/datum/tgs_chat_embed/field/shuttle_escapees_field = new("Эвакуировались на шаттле", "[num_shuttle_escapees]")
+	var/datum/tgs_chat_embed/field/another_escapees_field = new("Эвакуировались другими способами", "[num_another_escapees]")
+	var/datum/tgs_chat_embed/field/station_integrity_field = new("Состояние станции", "[station_integrity]%")
+
+	embed.fields = list(survivors_field, deads_field, escapees_field, shuttle_escapees_field, another_escapees_field, station_integrity_field)
+
+	send2chat(message, "launches")
