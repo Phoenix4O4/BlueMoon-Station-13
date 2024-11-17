@@ -431,7 +431,7 @@
 /mob/living/simple_animal/ExtinguishMob()
 	return
 
-/mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
+/mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0, excess_healing = 0)
 	if(..()) //successfully ressuscitated from death
 		icon = initial(icon)
 		icon_state = icon_living
@@ -699,3 +699,18 @@
 	. = ..()
 	if(. && length(src.damaged_sound))
 		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/examine(mob/user)
+	var/list/dat = ..()
+	if(stat == DEAD)
+		dat += "<span class='deadsay'>[p_they(TRUE)] appears to be dead.</span>"
+	else if(getBruteLoss())
+		if(health < (maxHealth * 0.15))
+			dat += span_warning("[p_they(TRUE)] looks critically injured.")
+		else if(health < (maxHealth * 0.5))
+			dat += span_warning("[p_they(TRUE)] looks severely injured.")
+		else if(health < (maxHealth * 0.85))
+			dat += span_warning("[p_they(TRUE)] looks injured.")
+		else
+			dat += span_warning("[p_they(TRUE)] looks slightly injured.")
+	return dat

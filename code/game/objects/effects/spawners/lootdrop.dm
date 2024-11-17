@@ -78,23 +78,27 @@
 	loot = list(
 				/obj/item/poster/random_contraband = 120,
 //				/obj/item/reagent_containers/hypospray/medipen/magillitis = 2, / BLUEMOON REMOVAL - убираем манчерские вещи из техов
-//				/obj/item/storage/box/syndie_kit/space = 3, / BLUEMOON REMOVAL - убираем манчерские вещи из техов
+				/obj/item/storage/box/syndie_kit/space = 3,
 				/obj/item/storage/toolbox/syndicate = 5,
+				/obj/item/storage/toolbox/inteq = 5,
 //				/obj/item/clothing/shoes/chameleon/noslip = 6, / BLUEMOON REMOVAL - убираем манчерские вещи из техов
 //				/obj/item/grenade/clusterbuster/soap/inteq = 6, / BLUEMOON REMOVAL - убираем манчерские вещи из техов
 				/obj/item/soap/syndie = 8,
 //				/obj/item/pen/sleepy = 12, / BLUEMOON REMOVAL - убираем манчерские вещи из техов
 				/obj/item/storage/backpack/duffelbag/syndie = 3,
 				/obj/item/storage/box/syndie_kit/chameleon = 4,
-				/obj/item/storage/toolbox/inteq = 1,
-				/obj/item/storage/backpack/duffelbag/syndie/inteq = 1,
-//				/obj/item/storage/box/syndie_kit/space/inteq = 1, / BLUEMOON REMOVAL - убираем манчерские вещи из техов
+				/obj/item/storage/backpack/duffelbag/syndie = 2,
+				/obj/item/storage/box/syndie_kit/space/inteq = 3,
 				/obj/item/soap/inteq = 4,
 				/obj/item/sign/flag/inteq = 1,
+				/obj/item/sign/flag/syndicate = 2,
 //				/obj/item/storage/fancy/cigarettes/cigpack_inteq = 1, / BLUEMOON REMOVAL - убираем манчерские вещи из техов
-				/obj/item/storage/backpack/guitarbag/loaded = 1,
-				/obj/structure/reagent_dispensers/kvass_barrel = 1, // BLUEMOON ADD
-				/obj/structure/reagent_dispensers/beerkeg = 2,
+				/obj/item/storage/backpack/guitarbag/loaded = 2,
+				/obj/structure/reagent_dispensers/kvass_barrel = 2,
+				/obj/structure/reagent_dispensers/beerkeg = 12,
+				/obj/item/reagent_containers/pill/labebium = 12,
+				/obj/item/gun/ballistic/automatic/pistol = 2,
+				/obj/item/ammo_box/magazine/m10mm = 8,
 				)
 
 /obj/effect/spawner/lootdrop/prison_contraband
@@ -162,6 +166,87 @@
 			/obj/item/trash/sosjerky = 1,
 			/obj/item/trash/syndi_cakes = 1)
 
+/obj/effect/spawner/lootdrop/trashbin
+	name = "trash spawner"
+	loot = list(/obj/item/cigbutt = 1,
+			/obj/item/trash/cheesie = 1,
+			/obj/item/trash/candy = 1,
+			/obj/item/trash/chips = 1,
+			/obj/item/reagent_containers/food/snacks/deadmouse = 1,
+			/obj/item/trash/pistachios = 1,
+			/obj/item/trash/plate = 1,
+			/obj/item/trash/popcorn = 1,
+			/obj/item/trash/raisins = 1,
+			/obj/item/trash/sosjerky = 1,
+			/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
+			/obj/item/trash/syndi_cakes = 1,
+			/obj/item/broken_bottle = 1)
+
+/obj/effect/spawner/lootdrop/tanks
+	name = "reagent tank spawner"
+	icon_state = "random_tanks"
+	lootdoubles = FALSE
+
+	loot = list(
+			/obj/structure/reagent_dispensers/fueltank = 5,
+			/obj/structure/reagent_dispensers/watertank = 5,
+			/obj/structure/reagent_dispensers/watertank/high = 3,
+			/obj/structure/reagent_dispensers/foamtank = 1,
+		)
+
+/obj/effect/spawner/lootdrop/tanks/lowchance
+	name = "rare reagent tank spawner"
+	lootdoubles = FALSE
+
+	loot = list(
+			"" = 50,
+			/obj/structure/reagent_dispensers/fueltank = 5,
+			/obj/structure/reagent_dispensers/watertank = 5,
+			/obj/structure/reagent_dispensers/watertank/high = 3,
+			/obj/structure/reagent_dispensers/foamtank = 1,
+		)
+
+/obj/effect/spawner/lootdrop/tanks/midchance
+	name = "common reagent tank spawner"
+	lootdoubles = FALSE
+
+	loot = list(
+			"" = 15,
+			/obj/structure/reagent_dispensers/fueltank = 5,
+			/obj/structure/reagent_dispensers/watertank = 5,
+			/obj/structure/reagent_dispensers/watertank/high = 3,
+			/obj/structure/reagent_dispensers/foamtank = 1,
+		)
+
+/obj/effect/spawner/lootdrop/tanks/highchance
+	name = "frequent reagent tank spawner"
+	lootdoubles = FALSE
+
+	loot = list(
+			"" = 5,
+			/obj/structure/reagent_dispensers/fueltank = 5,
+			/obj/structure/reagent_dispensers/watertank = 5,
+			/obj/structure/reagent_dispensers/watertank/high = 3,
+			/obj/structure/reagent_dispensers/foamtank = 1,
+		)
+
+/obj/effect/spawner/lootdrop/tanks/highquality
+	name = "highcap water/foam tank spawner"
+	lootdoubles = FALSE
+
+	loot = list(
+			/obj/structure/reagent_dispensers/watertank/high = 5,
+			/obj/structure/reagent_dispensers/foamtank = 5,
+		)
+
+/obj/effect/spawner/lootdrop/tanks/fuelonly
+	name = "guaranteed fuel tank spawner"
+	lootdoubles = FALSE
+
+	loot = list(
+			/obj/structure/reagent_dispensers/fueltank = 5,
+		)
+
 /obj/effect/spawner/lootdrop/three_course_meal
 	name = "three course meal spawner"
 	lootcount = 3
@@ -197,7 +282,36 @@
 
 /obj/effect/spawner/lootdrop/maintenance/Initialize(mapload)
 	loot = GLOB.maintenance_loot
+	lootcount = 1
 	. = ..()
+
+/obj/effect/spawner/lootdrop/maintenance/two
+	name = "2 x maintenance loot spawner"
+	lootcount = 2
+
+/obj/effect/spawner/lootdrop/maintenance/three
+	name = "3 x maintenance loot spawner"
+	lootcount = 3
+
+/obj/effect/spawner/lootdrop/maintenance/four
+	name = "4 x maintenance loot spawner"
+	lootcount = 4
+
+/obj/effect/spawner/lootdrop/maintenance/five
+	name = "5 x maintenance loot spawner"
+	lootcount = 5
+
+/obj/effect/spawner/lootdrop/maintenance/six
+	name = "6 x maintenance loot spawner"
+	lootcount = 6
+
+/obj/effect/spawner/lootdrop/maintenance/seven
+	name = "7 x maintenance loot spawner"
+	lootcount = 7
+
+/obj/effect/spawner/lootdrop/maintenance/eight
+	name = "8 x maintenance loot spawner"
+	lootcount = 8
 
 /obj/effect/spawner/lootdrop/maintenance/spawn_loot(lootcount_override)
 	if(isnull(lootcount_override))

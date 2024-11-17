@@ -46,7 +46,10 @@
 /datum/quirk/headpat_hater/remove()
 
 	var/mob/living/carbon/human/quirk_mob = quirk_holder
-
+	// BLUEMOON EDIT START - sanity check
+	if(!quirk_mob)
+		return
+	// BLUEMOON EDIT END
 	var/datum/action/cooldown/toggle_distant/act_toggle = locate() in quirk_mob.actions
 	if(act_toggle)
 		act_toggle.Remove(quirk_mob)
@@ -66,6 +69,10 @@
 
 /datum/quirk/headpat_slut/remove()
 	. = ..()
+	// BLUEMOON EDIT START - sanity check
+	if(!quirk_holder)
+		return
+	// BLUEMOON EDIT END
 	quirk_holder.RemoveElement(/datum/element/wuv/headpat)
 
 /datum/quirk/Hypnotic_gaze
@@ -91,7 +98,10 @@
 /datum/quirk/Hypnotic_gaze/remove()
 	// Define quirk mob
 	var/mob/living/carbon/human/quirk_mob = quirk_holder
-
+	// BLUEMOON EDIT START - sanity check
+	if(!quirk_mob)
+		return
+	// BLUEMOON EDIT END
 	// Remove quirk ability action datum
 	var/datum/action/cooldown/hypnotize/act_hypno = locate() in quirk_mob.actions
 	act_hypno.Remove(quirk_mob)
@@ -142,29 +152,33 @@
 //Zombies + Cumplus Fix\\
 
 /datum/quirk/undead
-    name = "Не-мёртвый"
-    desc = "Ваше тело, будь то аномальное или просто отказывающееся умирать, действительно стало нежитью. Из-за этого вы испытываете сильный голод."
-    value = 2
-    mob_trait = TRAIT_UNDEAD
-    processing_quirk = TRUE
+	name = "Не-мёртвый"
+	desc = "Ваше тело, будь то аномальное или просто отказывающееся умирать, действительно стало нежитью. Из-за этого вы испытываете сильный голод."
+	value = 2
+	mob_trait = TRAIT_UNDEAD
+	processing_quirk = TRUE
 	// Note: The Undead cannot take advantage of healing viruses and genetic mutations, since they have no DNA.
-    var/list/zperks = list(TRAIT_STABLEHEART,TRAIT_EASYDISMEMBER,TRAIT_VIRUSIMMUNE,TRAIT_RADIMMUNE,TRAIT_FAKEDEATH,TRAIT_NOSOFTCRIT, TRAIT_NOPULSE)
+	var/list/zperks = list(TRAIT_STABLEHEART,TRAIT_EASYDISMEMBER,TRAIT_VIRUSIMMUNE,TRAIT_RADIMMUNE,TRAIT_FAKEDEATH,TRAIT_NOSOFTCRIT, TRAIT_NOPULSE)
 
 /datum/quirk/undead/add()
-    . = ..()
-    var/mob/living/carbon/human/H = quirk_holder
-    if(H.mob_biotypes == MOB_ROBOTIC)
-        return FALSE //Lol, lmao, even
-    H.mob_biotypes += MOB_UNDEAD
-    for(var/A = 1, A <= zperks.len, A++)
-        ADD_TRAIT(H,zperks[A],ROUNDSTART_TRAIT)
+	. = ..()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H.mob_biotypes == MOB_ROBOTIC)
+		return FALSE //Lol, lmao, even
+	H.mob_biotypes += MOB_UNDEAD
+	for(var/A = 1, A <= zperks.len, A++)
+		ADD_TRAIT(H,zperks[A],ROUNDSTART_TRAIT)
 
 /datum/quirk/undead/remove()
-    . = ..()
-    var/mob/living/carbon/human/H = quirk_holder
-    H.mob_biotypes -= MOB_UNDEAD
-    for(var/A = 1, A <= zperks.len, A++)
-        REMOVE_TRAIT(H,zperks[A], null)
+	. = ..()
+	var/mob/living/carbon/human/H = quirk_holder
+	// BLUEMOON EDIT START - sanity check
+	if(!H)
+		return
+	// BLUEMOON EDIT END
+	H.mob_biotypes -= MOB_UNDEAD
+	for(var/A = 1, A <= zperks.len, A++)
+		REMOVE_TRAIT(H,zperks[A], null)
 
 /datum/quirk/undead/on_process()
 	. = ..()
@@ -261,7 +275,10 @@
 /datum/quirk/cosglow/remove()
 	// Define quirk holder mob
 	var/mob/living/carbon/human/quirk_mob = quirk_holder
-
+	// BLUEMOON EDIT START - sanity check
+	if(!quirk_mob)
+		return
+	// BLUEMOON EDIT END
 	// Remove glow control action
 	var/datum/action/cosglow/update_glow/quirk_action = locate() in quirk_mob.actions
 	quirk_action.Remove(quirk_mob)
@@ -356,6 +373,7 @@
 /datum/quirk/incubus/remove()
 	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
+
 	REMOVE_TRAIT(H,TRAIT_NO_PROCESS_FOOD,ROUNDSTART_TRAIT)
 	REMOVE_TRAIT(H,TRAIT_NOTHIRST,ROUNDSTART_TRAIT)
 
@@ -422,6 +440,10 @@
 	quirk_action.Grant(quirk_holder)
 
 /datum/quirk/werewolf/remove()
+	// BLUEMOON EDIT START - sanity check
+	if(!quirk_holder)
+		return
+	// BLUEMOON EDIT END
 	// Define quirk action
 	var/datum/action/cooldown/werewolf/transform/quirk_action = locate() in quirk_holder.actions
 
@@ -774,8 +796,11 @@ var/static/list/ukraine_replacements = list(
 /datum/quirk/body_morpher/remove()
 	// Define quirk mob
 	var/mob/living/carbon/human/quirk_mob = quirk_holder
-
 	// Remove quirk ability action datum
+	// BLUEMOON EDIT START - sanity check
+	if(!quirk_mob)
+		return
+	// BLUEMOON EDIT END
 	alter_form_action.Remove(quirk_mob)
 	QDEL_NULL(alter_form_action)
 
@@ -790,6 +815,10 @@ var/static/list/ukraine_replacements = list(
 
 /datum/quirk/modular/remove()
 	var/mob/living/carbon/human/C = quirk_holder
+	// BLUEMOON EDIT START - sanity check
+	if(!C)
+		return
+	// BLUEMOON EDIT END
 	remove_verb(C,/mob/living/proc/alterlimbs)
 
 /datum/quirk/messy
@@ -923,6 +952,11 @@ var/static/list/ukraine_replacements = list(
 	// Define quirk mob
 	var/mob/living/carbon/human/quirk_mob = quirk_holder
 
+	// BLUEMOON EDIT START - sanity check
+	if(!quirk_mob)
+		return
+	// BLUEMOON EDIT END
+
 	// Remove quirk traits
 	REMOVE_TRAIT(quirk_mob, TRAIT_NO_PROCESS_FOOD, ROUNDSTART_TRAIT)
 	REMOVE_TRAIT(quirk_mob, TRAIT_NOTHIRST, ROUNDSTART_TRAIT)
@@ -1054,3 +1088,100 @@ var/static/list/ukraine_replacements = list(
 // Quirk examine text.
 /datum/quirk/russian/proc/quirk_examine_russian(atom/examine_target, mob/living/carbon/human/examiner, list/examine_list)
 	examine_list += "[quirk_holder.ru_who(TRUE)] излучает русский дух..."
+
+// Lite version of Bloodflege
+// Removes all special powers
+/datum/quirk/bloodfledge_lite
+	name = "Sanguine Metabolism"
+	desc = "You are a non-magical Bloodsucker Fledgling, with no special powers. Only blood will sate your hungers, and holy energies will cause your flesh to char."
+	value = 0
+	medical_record_text = "Patient exhibits an unusually weak sanguine curse."
+	mob_trait = TRAIT_BLOODFLEDGE_LITE
+	gain_text = span_notice("You feel a sanguine thirst.")
+	lose_text = span_notice("You feel the sanguine thirst fade away.")
+
+/datum/quirk/bloodfledge_lite/add()
+	// Define quirk mob
+	var/mob/living/carbon/human/quirk_mob = quirk_holder
+
+	// Add quirk traits
+	ADD_TRAIT(quirk_mob,TRAIT_NO_PROCESS_FOOD,ROUNDSTART_TRAIT)
+	ADD_TRAIT(quirk_mob,TRAIT_NOTHIRST,ROUNDSTART_TRAIT)
+
+	// Add full trait to preserve bite, holy weakness, and examine functionality
+	ADD_TRAIT(quirk_mob,TRAIT_BLOODFLEDGE,ROUNDSTART_TRAIT)
+
+	// Lite version does not set skin tone or grant the language
+
+	// Register examine text
+	RegisterSignal(quirk_holder, COMSIG_PARENT_EXAMINE, PROC_REF(quirk_examine_bloodfledge_lite))
+
+/datum/quirk/bloodfledge_lite/post_add()
+	// Define quirk mob
+	var/mob/living/carbon/human/quirk_mob = quirk_holder
+
+	// Define and grant ability Bite
+	var/datum/action/cooldown/bloodfledge/bite/act_bite = new
+	act_bite.Grant(quirk_mob)
+
+	// Lite version does not grant the revive ability
+
+/datum/quirk/bloodfledge_lite/remove()
+	// Define quirk mob
+	var/mob/living/carbon/human/quirk_mob = quirk_holder
+
+	// Remove quirk traits
+	REMOVE_TRAIT(quirk_mob, TRAIT_NO_PROCESS_FOOD, ROUNDSTART_TRAIT)
+	REMOVE_TRAIT(quirk_mob, TRAIT_NOTHIRST, ROUNDSTART_TRAIT)
+	REMOVE_TRAIT(quirk_mob, TRAIT_BLOODFLEDGE, ROUNDSTART_TRAIT)
+
+	// Remove quirk ability action datums
+	var/datum/action/cooldown/bloodfledge/bite/act_bite = locate() in quirk_mob.actions
+	act_bite.Remove(quirk_mob)
+
+	// Unregister examine text
+	UnregisterSignal(quirk_holder, COMSIG_PARENT_EXAMINE)
+
+/datum/quirk/bloodfledge_lite/proc/quirk_examine_bloodfledge_lite(atom/examine_target, mob/living/carbon/human/examiner, list/examine_list)
+	SIGNAL_HANDLER
+
+	// Check if human examiner exists
+	if(!istype(examiner))
+		return
+
+	// Check if examiner is a non-Fledgling
+	if(!isbloodfledge(examiner))
+		// Return with no effects
+		return
+
+	// Check if examiner is dumb
+	if(HAS_TRAIT(examiner, TRAIT_DUMB))
+		// Return with no effects
+		return
+
+	// Define quirk mob
+	var/mob/living/carbon/human/quirk_mob = quirk_holder
+
+	// Define hunger texts
+	var/examine_hunger
+
+	// Check hunger levels
+	switch(quirk_mob.nutrition)
+		// Hungry
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			examine_hunger = "[quirk_holder.p_they(TRUE)] [quirk_holder.p_are()] blood starved!"
+
+		// Starving
+		if(0 to NUTRITION_LEVEL_STARVING)
+			examine_hunger = "[quirk_holder.p_they(TRUE)] [quirk_holder.p_are()] in dire need of blood!"
+
+		// Invalid hunger
+		else
+			// Return with no message
+			return
+
+	// Add detection text
+	examine_list += span_info("[quirk_holder.p_their(TRUE)] hunger allows you to identify [quirk_holder.p_them()] as a lesser Bloodsucker Fledgling!")
+
+	// Add hunger text
+	examine_list += span_warning(examine_hunger)

@@ -305,8 +305,12 @@
 	ammo = /obj/item/ammo_box/magazine/wt550m9
 
 /obj/item/storage/box/ammo/holy
-	name = "some holy water"
+	name = "box of holy water"
 	ammo = /obj/item/reagent_containers/food/drinks/bottle/holywater
+
+/obj/item/storage/box/ammo/cleaning_grenades
+	name = "box of cleaning grenades"
+	ammo = /obj/item/grenade/chem_grenade/cleaner
 
 /obj/item/storage/box/ammo/PopulateContents()
 	..()
@@ -774,7 +778,7 @@
 /obj/item/storage/box/snappops
 	name = "snap pop box"
 	desc = "Eight wrappers of fun! Ages 8 and up. Not suitable for children."
-	icon = 'icons/obj/toy.dmi'
+	icon = 'icons/obj/toys/toy.dmi'
 	icon_state = "spbox"
 	illustration = null
 
@@ -1029,7 +1033,7 @@
 
 /obj/item/storage/box/mechfigures/PopulateContents()
 	for(var/i in 1 to 4)
-		var/randomFigure = pick(subtypesof(/obj/item/toy/prize/))
+		var/randomFigure = pick(subtypesof(/obj/item/toy/mecha))
 		new randomFigure(src)
 
 /obj/item/storage/box/papersack
@@ -1734,15 +1738,19 @@
 	icon_state = "robusta_beans"
 	beantype = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
 
-/obj/item/storage/box/catcrin_kit
-	name = "Catcrin kit"
-	desc = "Contains a full kit of Catcrin equipment."
+//BLUEMOON ADD
+
+/obj/item/storage/box/acrador_kit
+	name = "Acrador kit"
+	desc = "Contains a full kit of Acrador equipment."
 	icon_state = "box"
 
-/obj/item/storage/box/catcrin_kit/PopulateContents()
-	new /obj/item/modkit/gewehr550(src)
-	new /obj/item/modkit/hwal2572(src)
-	new /obj/item/modkit/karabiner_kit(src)
-	new /obj/item/modkit/stunspear_kit(src)
-	new /obj/item/modkit/frontline(src)
-	new /obj/item/clothing/accessory/ac_patch(src)
+/obj/item/storage/box/acrador_kit/PopulateContents()
+	new /obj/item/modkit/rshield_kit(src)
+	new /obj/item/modkit/anstrum_kit(src)
+	new /obj/item/modkit/rs14_kit(src)
+	new /obj/item/modkit/cmg_kit(src)
+	new /obj/item/modkit/tonfa_kit(src)
+	new /obj/item/modkit/rs9(src)
+
+//BLUEMOON ADD END

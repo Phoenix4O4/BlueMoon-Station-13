@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/preferred_map = null
 	var/preferred_chaos = null
 	var/be_victim = null
-	var/use_new_playerpanel = FALSE
+	var/use_new_playerpanel = TRUE // BLUEMOON - ENABELING-MODERN-PLAYER-PANEL-AS-DEFAULT
 	var/disable_combat_cursor = FALSE
 	var/tg_playerpanel = "TG"
 	var/pda_style = MONO
@@ -369,7 +369,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	///loadout stuff
 	var/gear_points = 20 // Больше очков - сочнее персонажи.
 	var/list/gear_categories
-	var/list/loadout_data = list()
+	var/list/loadout_data
 	var/list/unlockable_loadout_data = list()
 	var/loadout_slot = 1 //goes from 1 to MAXIMUM_LOADOUT_SAVES
 	var/gear_category
@@ -511,17 +511,25 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<HR>"
 
 			dat += "<center>"
-			var/client_file = user.client.Import()
+			var/savefile/client_file = new(user.client.Import())
 			var/savefile_name
-			if(client_file)
-				var/savefile/cache_savefile = new(user.client.Import())
-				if(!cache_savefile["deleted"] || savefile_needs_update(cache_savefile) != -2)
-					cache_savefile["real_name"] >> savefile_name
+			if(istype(client_file, /savefile))
+				if(!client_file["deleted"] || savefile_needs_update(client_file) != -2)
+					client_file["real_name"] >> savefile_name
 			dat += "Local storage: [savefile_name ? savefile_name : "Empty"]"
 			dat += "<br />"
 			dat += "<a href='?_src_=prefs;preference=export_slot'>Export current slot</a>"
 			dat += "<a [savefile_name ? "href='?_src_=prefs;preference=import_slot' style='white-space:normal;'" : "class='linkOff'"]>Import into current slot</a>"
 			dat += "<a href='?_src_=prefs;preference=delete_local_copy' style='white-space:normal;background:#eb2e2e;'>Delete locally saved character</a>"
+			dat += "<br />"
+			dat += "<a href='?_src_=prefs;preference=give_slot' [offer ? "style='white-space:normal;background:#eb2e2e;'" : ""]>[offer ? "Cancel offer" : "Offer slot"]</a>"
+			dat += "<a href='?_src_=prefs;preference=retrieve_slot'>Retrieve offered character</a>"
+			if(offer)
+				dat += "<br />"
+				dat += "The redemption code is <b>[offer.redemption_code]</b>"
+				dat += "<br />"
+				dat += "The offer will automatically be cancelled if there is an error, or if someone takes it"
+
 			dat += "</center>"
 
 			dat += "<HR>"
@@ -553,7 +561,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				//calculate your gear points from the chosen item
 				gear_points = CONFIG_GET(number/initial_gear_points)
 				var/list/chosen_gear = loadout_data["SAVE_[loadout_slot]"]
-				if(chosen_gear)
+				if(islist(chosen_gear))
 					loadout_errors = 0
 					for(var/loadout_item in chosen_gear)
 						var/loadout_item_path = loadout_item[LOADOUT_ITEM]
@@ -854,20 +862,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 						dat += "<h3>Hair Style</h3>"
 
-						dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=hair_style;task=input'>[hair_style]</a>"
+						dat += "<a style='display:block;width:180px' href='?_src_=prefs;preference=hair_style;task=input'>[hair_style]</a>" // BLUEMOON EDIT - увеличена ширина со 100 до 180
 						dat += "<a href='?_src_=prefs;preference=previous_hair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_hair_style;task=input'>&gt;</a><BR>"
 						dat += "<span style='border:1px solid #161616; background-color: #[hair_color];'><font color='[color_hex2num(hair_color) < 200 ? "FFFFFF" : "000000"]'>#[hair_color]</font></span> <a href='?_src_=prefs;preference=hair;task=input'>Change</a><BR>"
 
 						dat += "<h3>Facial Hair Style</h3>"
 
-						dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=facial_hair_style;task=input'>[facial_hair_style]</a>"
+						dat += "<a style='display:block;width:180px' href='?_src_=prefs;preference=facial_hair_style;task=input'>[facial_hair_style]</a>" // BLUEMOON EDIT - увеличена ширина со 100 до 180
 						dat += "<a href='?_src_=prefs;preference=previous_facehair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_facehair_style;task=input'>&gt;</a><BR>"
 						dat += "<span style='border:1px solid #161616; background-color: #[facial_hair_color];'><font color='[color_hex2num(facial_hair_color) < 200 ? "FFFFFF" : "000000"]'>#[facial_hair_color]</font></span> <a href='?_src_=prefs;preference=facial;task=input'>Change</a><BR>"
 
 						dat += "<h3>Hair Gradient</h3>"
 
-						dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=grad_style;task=input'>[grad_style]</a>"
-						dat += "<a href='?_src_=prefs;preference=previous_grad_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_grad_style;task=input'>&gt;</a><BR>"
+						dat += "<a style='display:block;width:180px' href='?_src_=prefs;preference=grad_style;task=input'>[grad_style]</a>"
+						dat += "<a href='?_src_=prefs;preference=previous_grad_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_grad_style;task=input'>&gt;</a><BR>" // BLUEMOON EDIT - увеличена ширина со 100 до 180
 						dat += "<span style='border:1px solid #161616; background-color: #[grad_color];'><font color='[color_hex2num(grad_color) < 200 ? "FFFFFF" : "000000"]'>#[grad_color]</font></span> <a href='?_src_=prefs;preference=grad_color;task=input'>Change</a><BR>"
 
 						dat += "</td>"
@@ -882,7 +890,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							if(!mutant_category)
 								dat += APPEARANCE_CATEGORY_COLUMN
 							dat += "<h3>[GLOB.all_mutant_parts[mutant_part]]</h3>"
-							dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=[mutant_part];task=input'>[features[mutant_part]]</a>"
+							dat += "<a style='display:block;width:180px' href='?_src_=prefs;preference=[mutant_part];task=input'>[features[mutant_part]]</a>" // BLUEMOON EDIT - увеличена ширина со 100 до 180
+							// BLUEMOON ADD START - <_AND_>_FOR_CHARACTER_REDACTOR
+							dat += "<a href='?_src_=prefs;preference=previous_[mutant_part]_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_[mutant_part]_style;task=input'>&gt;</a><BR>"
+							// BLUEMOON ADD END
 							var/color_type = GLOB.colored_mutant_parts[mutant_part] //if it can be coloured, show the appropriate button
 							if(color_type)
 								dat += "<span style='border:1px solid #161616; background-color: #[features[color_type]];'><font color='[color_hex2num(features[color_type]) < 200 ? "FFFFFF" : "000000"]'>#[features[color_type]]</font></span> <a href='?_src_=prefs;preference=[color_type];task=input'>Change</a><BR>"
@@ -1307,6 +1318,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</tr></table>"
 				if(LOADOUT_CHAR_TAB)
 					dat += "<table align='center' width='100%'>"
+					dat += "<tr><td colspan=4><center><b>Loadout slot</b></center></td></tr>"
+					dat += "<tr><td colspan=4><center>"
+					for(var/iteration in 1 to MAXIMUM_LOADOUT_SAVES)
+						dat += "<a [loadout_slot == iteration ? "class='linkOn'" : "href='?_src_=prefs;preference=gear;select_slot=[iteration]'"]>[iteration]</a>"
+					dat += "</center></td></tr>"
 					dat += "<tr><td colspan=4><center><i style=\"color: grey;\">You can only choose one item per category, unless it's an item that spawns in your backpack or hands.</center></td></tr>"
 					dat += "<tr><td colspan=4><center><b>"
 
@@ -2541,6 +2557,184 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("previous_grad_style")
 					grad_style = previous_list_item(grad_style, GLOB.hair_gradients_list)
+
+				// BLUEMOON ADD START - <_AND_>_FOR_CHARACTER_REDACTOR
+
+				// HORNS
+				if("next_horns_style")
+					features["horns"] = next_list_item(features["horns"], GLOB.horns_list)
+
+				if("previous_horns_style")
+					features["horns"] = previous_list_item(features["horns"], GLOB.horns_list)
+
+				// MEAT TYPE
+				if("next_meat_type_style")
+					features["meat_type"] = next_list_item(features["meat_type"], GLOB.meat_types)
+
+				if("previous_meat_type_style")
+					features["meat_type"] = previous_list_item(features["meat_type"], GLOB.meat_types)
+
+				// IPC ANTENNA
+				if("next_ipc_antenna_style")
+					features["ipc_antenna"] = next_list_item(features["ipc_antenna"], GLOB.ipc_antennas_list)
+
+				if("previous_ipc_antenna_style")
+					features["ipc_antenna"] = previous_list_item(features["ipc_antenna"], GLOB.ipc_antennas_list)
+
+				// IPC SCREENS
+				if("next_ipc_screen_style")
+					features["ipc_screen"] = next_list_item(features["ipc_screen"], GLOB.ipc_screens_list)
+
+				if("previous_ipc_screen_style")
+					features["ipc_screen"] = previous_list_item(features["ipc_screen"], GLOB.ipc_screens_list)
+
+				// XENO DORSALS
+				if("next_xenodorsal_style")
+					features["xenodorsal"] = next_list_item(features["xenodorsal"], GLOB.xeno_dorsal_list)
+
+				if("previous_xenodorsal_style")
+					features["xenodorsal"] = previous_list_item(features["xenodorsal"], GLOB.xeno_dorsal_list)
+
+				// XENO TAILS
+				if("next_xenotail_style")
+					features["xenotail"] = next_list_item(features["xenotail"], GLOB.xeno_tail_list)
+
+				if("previous_xenotail_style")
+					features["xenotail"] = previous_list_item(features["xenotail"], GLOB.xeno_tail_list)
+
+				// XENO HEADS
+				if("next_xenohead_style")
+					features["xenohead"] = next_list_item(features["xenohead"], GLOB.xeno_head_list)
+
+				if("previous_xenohead_style")
+					features["xenohead"] = previous_list_item(features["xenohead"], GLOB.xeno_head_list)
+
+				// ARACHNIDS MANDIBLES
+				if("next_arachnid_mandibles_style")
+					features["arachnid_mandibles"] = next_list_item(features["arachnid_mandibles"], GLOB.arachnid_mandibles_list)
+
+				if("previous_arachnid_mandibles_style")
+					features["arachnid_mandibles"] = previous_list_item(features["arachnid_mandibles"], GLOB.arachnid_mandibles_list)
+
+				// ARACHINDS SPHINNERET
+				if("next_arachnid_spinneret_style")
+					features["arachnid_spinneret"] = next_list_item(features["arachnid_spinneret"], GLOB.arachnid_spinneret_list)
+
+				if("previous_arachnid_spinneret_style")
+					features["arachnid_spinneret"] = previous_list_item(features["arachnid_spinneret"], GLOB.arachnid_spinneret_list)
+
+				// ARACHNIDS LEGS
+				if("next_arachnid_legs_style")
+					features["arachnid_legs"] = next_list_item(features["arachnid_legs"], GLOB.arachnid_legs_list)
+
+				if("previous_arachnid_legs_style")
+					features["arachnid_legs"] = previous_list_item(features["arachnid_legs"], GLOB.arachnid_legs_list)
+
+				// WINGS
+				if("next_wings_style")
+					features["wings"] = next_list_item(features["wings"], GLOB.wings_list)
+
+				if("previous_wings_style")
+					features["wings"] = previous_list_item(features["wings"], GLOB.wings_list)
+
+				// TAUR BODY
+				if("next_taur_style")
+					features["taur"] = next_list_item(features["taur"], GLOB.taur_list)
+
+				if("previous_taur_style")
+					features["taur"] = previous_list_item(features["taur"], GLOB.taur_list)
+
+				// INSECT FLUFF (NECK AND SPINE)
+				if("next_insect_fluff_style")
+					features["insect_fluff"] = next_list_item(features["insect_fluff"], GLOB.insect_fluffs_list)
+
+				if("previous_insect_fluff_style")
+					features["insect_fluff"] = previous_list_item(features["insect_fluff"], GLOB.insect_fluffs_list)
+
+				// INSECT WINGS
+				if("next_insect_wings_style")
+					features["insect_wings"] = next_list_item(features["insect_wings"], GLOB.insect_wings_list)
+
+				if("previous_insect_wings_style")
+					features["insect_wings"] = previous_list_item(features["insect_wings"], GLOB.insect_wings_list)
+
+				// DECO WINGS
+				if("next_deco_wings_style")
+					features["deco_wings"] = next_list_item(features["deco_wings"], GLOB.deco_wings_list)
+
+				if("previous_deco_wings_style")
+					features["deco_wings"] = previous_list_item(features["deco_wings"], GLOB.deco_wings_list)
+
+				// LEGS
+				if("next_legs_style")
+					features["legs"] = next_list_item(features["legs"], GLOB.legs_list)
+
+				if("previous_legs_style")
+					features["legs"] = previous_list_item(features["legs"], GLOB.legs_list)
+
+				// MAMMAL SNOUTS
+				if("next_mam_snouts_style")
+					features["mam_snouts"] = next_list_item(features["mam_snouts"], GLOB.mam_snouts_list)
+
+				if("previous_mam_snouts_style")
+					features["mam_snouts"] = previous_list_item(features["mam_snouts"], GLOB.mam_snouts_list)
+
+				// EARS
+				if("next_ears_style")
+					features["ears"] = next_list_item(features["ears"], GLOB.ears_list)
+
+				if("previous_ears_style")
+					features["ears"] = previous_list_item(features["ears"], GLOB.ears_list)
+
+				// MAMMAL EARS
+				if("next_mam_ears_style")
+					features["mam_ears"] = next_list_item(features["mam_ears"], GLOB.mam_ears_list)
+
+				if("previous_mam_ears_style")
+					features["mam_ears"] = previous_list_item(features["mam_ears"], GLOB.mam_ears_list)
+
+				// LIZARDS SPINES
+				if("next_spines_style")
+					features["spines"] = next_list_item(features["spines"], GLOB.spines_list)
+
+				if("previous_spines_style")
+					features["spines"] = previous_list_item(features["spines"], GLOB.spines_list)
+
+				// LIZARDS FRILLS
+				if("next_frills_style")
+					features["frills"] = next_list_item(features["frills"], GLOB.frills_list)
+
+				if("previous_frills_style")
+					features["frills"] = previous_list_item(features["frills"], GLOB.frills_list)
+
+				// LIZARDS SNOUTS
+				if("next_snout_style")
+					features["snout"] = next_list_item(features["snout"], GLOB.snouts_list)
+
+				if("previous_snout_style")
+					features["snout"] = previous_list_item(features["snout"], GLOB.snouts_list)
+
+				// HUMAN TAILS
+				if("next_tail_human_style")
+					features["tail_human"] = next_list_item(features["tail_human"], GLOB.tails_list_human)
+
+				if("previous_tail_human_style")
+					features["tail_human"] = previous_list_item(features["tail_human"], GLOB.tails_list_human)
+
+				// LIZARDS TAILS
+				if("next_tail_lizard_style")
+					features["tail_lizard"] = next_list_item(features["tail_lizard"], GLOB.tails_list_lizard)
+
+				if("previous_tail_lizard_style")
+					features["tail_lizard"] = previous_list_item(features["tail_lizard"], GLOB.tails_list_lizard)
+
+				// MAMMAL TAILS
+				if("next_mam_tail_style")
+					features["mam_tail"] = next_list_item(features["mam_tail"], GLOB.mam_tails_list)
+
+				if("previous_mam_tail_style")
+					features["mam_tail"] = previous_list_item(features["mam_tail"], GLOB.mam_tails_list)
+				// BLUEMOON ADD END
 
 				if("cycle_bg")
 					bgstate = next_list_item(bgstate, bgstate_options)
@@ -4282,8 +4476,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("import_slot")
 					var/savefile/S = new(user.client.Import())
 					if(istype(S, /savefile))
-						if(load_character(provided = S) == TRUE)
+						if(load_character(provided = S))
 							tgui_alert_async(user, "Successfully loaded character slot.")
+							save_character(TRUE)
 						else
 							tgui_alert_async(user, "Failed loading character slot")
 							return
@@ -4295,7 +4490,75 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					user.client.clear_export()
 					tgui_alert_async(user, "Local save data erased.")
 
+				if("give_slot")
+					if(!QDELETED(offer))
+						var/datum/character_offer_instance/offer_datum = LAZYACCESS(GLOB.character_offers, offer.redemption_code)
+						if(!offer_datum)
+							return
+						qdel(offer_datum)
+					else
+						var/savefile/S = save_character(export = TRUE)
+						if(istype(S, /savefile))
+							var/datum/character_offer_instance/offer_datum = new(usr.ckey, S)
+							if(QDELETED(offer_datum))
+								tgui_alert_async(usr, "Could not set up offer, try again later")
+								return
+							offer_datum.RegisterSignal(usr, COMSIG_MOB_CLIENT_LOGOUT, TYPE_PROC_REF(/datum/character_offer_instance, on_quit))
+							offer = offer_datum
+							tgui_alert_async(usr, "The redemption code is [offer_datum.redemption_code], give it to the receiver")
+
+				if("retrieve_slot")
+					if(!LAZYLEN(GLOB.character_offers))
+						tgui_alert_async(usr, "There are no active offers")
+						return
+					var/retrieve_code = input(usr, "Input the 5 digit redemption code") as text|null
+					if(!retrieve_code)
+						return
+					if(!text2num(retrieve_code))
+						tgui_alert_async(usr, "Only numbers allowed")
+						return
+					if(length(retrieve_code) != 5)
+						tgui_alert_async(usr, "Exactly 5 digits, no less, no more, try again")
+						return
+					var/datum/character_offer_instance/offer_datum = LAZYACCESS(GLOB.character_offers, retrieve_code)
+					if(!offer_datum)
+						tgui_alert_async(usr, "This is an invalid code!")
+						return
+					if(offer == offer_datum)
+						tgui_alert_async(usr, "You cannot accept your own offer")
+						return
+					var/savefile/savefile = offer_datum.character_savefile
+					var/mob/living/the_owner = get_mob_by_ckey(offer_datum.owner_ckey)
+					if(savefile_needs_update(savefile) == -2)
+						tgui_alert_async(usr, "Something's wrong, this savefile is corrupted.")
+						to_chat(the_owner, span_boldwarning("Something went wrong with the trade, it's been canceled."))
+						qdel(offer_datum)
+						return
+					var/character_name = savefile["real_name"]
+					if(alert(usr, "You are overwriting the currently selected slot with the character [character_name]", "Are you sure?", "Yes, load this character deleting the currently selected slot", "No") == "No")
+						return
+					if(QDELETED(offer_datum))
+						tgui_alert_async(usr, "This character is no longer available, such a shame!")
+						return
+					to_chat(the_owner, span_boldwarning("[usr.key] has retrieved your character, [character_name]!"))
+					if(!load_character(provided = savefile))
+						tgui_alert_async(usr, "Something went wrong loading the savefile, even though it has already been checked, please report this issue!")
+						to_chat(the_owner, span_boldwarning("Something went wrong at the final step of the trade, report this."))
+						qdel(offer_datum)
+						return
+					tgui_alert_async(usr, "Successfully received [character_name]!")
+					save_character(TRUE)
+					qdel(offer_datum)
+
 	if(href_list["preference"] == "gear")
+		if(href_list["select_slot"])
+			var/chosen = text2num(href_list["select_slot"])
+			if(!chosen)
+				return
+			chosen = floor(chosen)
+			if(chosen > MAXIMUM_LOADOUT_SAVES || chosen < 1)
+				return
+			loadout_slot = chosen
 		if(href_list["clear_loadout"])
 			loadout_data["SAVE_[loadout_slot]"] = list()
 			save_preferences()
