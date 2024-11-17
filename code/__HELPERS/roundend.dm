@@ -941,4 +941,4 @@
 
 	embed.fields = list(survivors_field, deads_field, escapees_field, shuttle_escapees_field, another_escapees_field, station_integrity_field)
 
-	send2chat(message, "launches")
+	send2chat(message, CONFIG_GET(string/chat_roundend_notice_tag))
