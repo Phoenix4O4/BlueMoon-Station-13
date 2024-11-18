@@ -29,16 +29,16 @@
 	var/station_integrity = popcount["station_integrity"]
 	var/channel_tag = CONFIG_GET(string/chat_roundend_notice_tag)
 
-	var/datum/tgs_message_content/message = new()
+	var/datum/tgs_message_content/message = new(":blushcat:")
 	var/datum/tgs_chat_embed/structure/embed = new()
 	message.embed = embed
 	embed.author = new /datum/tgs_chat_embed/provider/author/glob()
 	embed.title = "Статистика окончания раунда"
-	embed.description = ":blushcat:"
+	embed.description = " "
 	embed.colour = "#34a5c2"
 
 	var/datum/tgs_chat_embed/field/survivors_field = new(":god_save_me:Выжившие", "[num_survivors]")
-	var/datum/tgs_chat_embed/field/deads_field = new(":wolf_skull:Погибшие", "[num_deads]")
+	var/datum/tgs_chat_embed/field/deads_field = new(":wolf_skull:Погибшие:[num_deads]")
 	var/datum/tgs_chat_embed/field/escapees_field = new(":door:Эвакуировавшиеся", "[num_escapees]")
 	var/datum/tgs_chat_embed/field/shuttle_escapees_field = new(":rocket:Эвакуировались на шаттле", "[num_shuttle_escapees]")
 	var/datum/tgs_chat_embed/field/another_escapees_field = new(":ambulance:Эвакуировались другими способами", "[num_another_escapees]")
@@ -54,11 +54,16 @@
 			send2chat("Ошибка: не удалось загрузить ссылки из FUNNY_VIDEOS_FILE_NAME", channel_tag)
 			return
 
-		// Выбираем случайную ссылку
-		var/random_link = pick(random_links)
+		var/random_link = null
+		var/attempts = 0
+		while (attempts < 5)
+			random_link = pick(random_links)
+			var/discord_count = findall(random_link, "discordapp").len
+			if (discord_count <= 1)
+				break
+			attempts++
 		var/datum/tgs_message_content/random_message = new(random_link)
 
-		// Отправляем сообщение
 		send2chat(random_message, channel_tag)
 
 #undef FUNNY_VIDEOS_FILE_NAME
