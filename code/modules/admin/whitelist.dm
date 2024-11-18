@@ -85,9 +85,9 @@
 
 				var/datum/db_query/query_update_whitelist = SSdbcore.NewQuery({"
 					UPDATE [format_table_name("whitelist")]
-					SET deleted = 0, manager = :manager, manager_id = :manager_id
+					SET deleted = 0, manager = :manager, manager_id = :manager_id, comment = :comment
 					WHERE ckey = :ckey
-				"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id))
+				"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id, "comment" = comment))
 
 				if(!query_update_whitelist.Execute())
 					. += "Failed to update ckey `[key]`\n"
@@ -98,16 +98,14 @@
 				qdel(query_update_whitelist)
 
 				. += "`[key]` has been re-added to the whitelist!\n"
-				if(comment != "")
-					. += "Comment: [comment]\n"
 				return
 
 			qdel(query_get_whitelist)
 
 			var/datum/db_query/query_add_whitelist = SSdbcore.NewQuery({"
-				INSERT INTO [format_table_name("whitelist")] (ckey, manager, manager_id)
+				INSERT INTO [format_table_name("whitelist")] (ckey, manager, manager_id, comment)
 				VALUES (:ckey, :manager, :manager_id)
-			"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id))
+			"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id, "comment" = comment))
 
 			if(!query_add_whitelist.Execute())
 				. += "Failed to add ckey `[key]`\n"
@@ -118,8 +116,6 @@
 			qdel(query_add_whitelist)
 
 			. += "`[key]` has been added to the whitelist!\n"
-			if(comment != "")
-				. += "Comment: [comment]\n"
 			return
 
 		if("remove")
@@ -137,9 +133,9 @@
 
 			var/datum/db_query/query_remove_whitelist = SSdbcore.NewQuery({"
 				UPDATE [format_table_name("whitelist")]
-				SET deleted = 1, manager = :manager, manager_id = :manager_id
+				SET deleted = 1, manager = :manager, manager_id = :manager_id, comment = :comment
 				WHERE ckey = :ckey
-			"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id))
+			"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id, "comment" = comment))
 
 			if(!query_remove_whitelist.Execute())
 				. += "Failed to remove ckey `[key]`"
@@ -150,8 +146,6 @@
 			qdel(query_remove_whitelist)
 
 			. += "`[key]` has been removed from the whitelist!\n"
-			if(comment != "")
-				. += "Comment: [comment]\n"
 			return
 
 		if("list")
@@ -162,7 +156,7 @@
 					limit = default_limit
 
 			var/datum/db_query/query_get_all_whitelist = SSdbcore.NewQuery({"
-				SELECT ckey FROM [format_table_name("whitelist")] WHERE deleted = 0 LIMIT :limit
+				SELECT ckey FROM [format_table_name("whitelist")] WHERE deleted = 0 ORDER BY last_modified DESC LIMIT :limit
 			"}, list("limit" = limit))
 
 			if(!query_get_all_whitelist.Execute())
