@@ -26,7 +26,7 @@
 	message.embed = embed
 	embed.author = new /datum/tgs_chat_embed/provider/author/glob()
 	embed.title = "Статистика окончания раунда"
-	embed.description = ":blushcat:
+	embed.description = ":blushcat:"
 	embed.colour = "#34a5c2"
 
 	var/datum/tgs_chat_embed/field/survivors_field = new(":god_save_me:Выжившие", "[num_survivors]")
