@@ -269,7 +269,6 @@
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
-	send_roundend_stats_tgs_message(popcount) //BLUEMOON EDIT: TGS ROUND END STATS
 
 	CHECK_TICK
 
@@ -310,6 +309,7 @@
 	CHECK_TICK
 
 	handle_hearts()
+	send_roundend_stats_tgs_message(popcount) //BLUEMOON EDIT: TGS ROUND END STATS
 
 	if(CONFIG_GET(flag/reveal_everything))
 		set_observer_default_invisibility(0, "<span class='warning'>The round is over! You are now visible to the living.</span>")
