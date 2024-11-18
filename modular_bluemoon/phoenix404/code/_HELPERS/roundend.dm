@@ -46,5 +46,6 @@
 		for (var/command in splittext(commands_string, ","))
 			random_commands += trim(command)
 		var/random_command = pick(random_commands)
-		var/datum/tgs_message_content/random_message = new(random_command)
+		var/command_with_prefix = "!" + random_command
+		var/datum/tgs_message_content/random_message = new(command_with_prefix)
 		send2chat(random_message, channel_tag)

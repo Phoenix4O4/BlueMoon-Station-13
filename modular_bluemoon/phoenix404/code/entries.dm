@@ -8,7 +8,5 @@
 	default = "aiko"
 
 /datum/config_entry/string/roundend_status_enabled
-	default = FALSE
 
 /datum/config_entry/string/roundend_chat_command_enabled
-	default = FALSE
