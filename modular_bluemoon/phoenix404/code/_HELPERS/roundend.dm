@@ -29,12 +29,12 @@
 	//embed.description = "Статистика по завершённому раунду:"
 	embed.colour = "#34a5c2"
 
-	var/datum/tgs_chat_embed/field/survivors_field = new(":god_save_me:Выжившие: [num_survivors]")
-	var/datum/tgs_chat_embed/field/deads_field = new(":wolf_skull:Погибшие: [num_deads]")
-	var/datum/tgs_chat_embed/field/escapees_field = new(":door:Эвакуировавшиеся: [num_escapees]")
-	var/datum/tgs_chat_embed/field/shuttle_escapees_field = new(":rocket:Эвакуировались на шаттле: [num_shuttle_escapees]")
-	var/datum/tgs_chat_embed/field/another_escapees_field = new(":ambulance:Эвакуировались другими способами: [num_another_escapees]")
-	var/datum/tgs_chat_embed/field/station_integrity_field = new(":bar_chart:Состояние станции: [station_integrity]%")
+	var/datum/tgs_chat_embed/field/survivors_field = new(":god_save_me:Выжившие", "[num_survivors]")
+	var/datum/tgs_chat_embed/field/deads_field = new(":wolf_skull:Погибшие", "[num_deads]")
+	var/datum/tgs_chat_embed/field/escapees_field = new(":door:Эвакуировавшиеся", "[num_escapees]")
+	var/datum/tgs_chat_embed/field/shuttle_escapees_field = new(":rocket:Эвакуировались на шаттле", "[num_shuttle_escapees]")
+	var/datum/tgs_chat_embed/field/another_escapees_field = new(":ambulance:Эвакуировались другими способами", "[num_another_escapees]")
+	var/datum/tgs_chat_embed/field/station_integrity_field = new(":bar_chart:Состояние станции", "[station_integrity]%")
 
 	embed.fields = list(survivors_field, deads_field, escapees_field, shuttle_escapees_field, another_escapees_field, station_integrity_field)
 
