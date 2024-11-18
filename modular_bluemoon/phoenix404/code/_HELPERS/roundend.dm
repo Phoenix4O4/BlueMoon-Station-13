@@ -1,14 +1,22 @@
-/proc/LoadTGSBotConfig()
-	return list(
-		"name" = CONFIG_GET(string/bot_name),
-		"icon" = CONFIG_GET(string/bot_icon)
-	)
+#define FUNNY_VIDEOS_FILE_NAME "config/bluemoon/discord_videos.json"
+
+/proc/init_discord_videos()
+	if (!fexists(FUNNY_VIDEOS_FILE_NAME))
+		return null
+	var/list/videos_json = json_decode(file2text(FUNNY_VIDEOS_FILE_NAME))
+	if (!length(videos_json))
+		return null
+
+	var/list/contents = list()
+	for (var/entry in videos_json)
+		if (entry["content"])
+			contents += entry["content"]
+
+	return contents
 
 /datum/tgs_chat_embed/provider/author/glob
-	proc/InitializeTGSBot()
-		var/list/config = LoadTGSBotConfig()
-		name = config["name"]
-		icon_url = config["icon"]
+	name = "Цунода вещает"
+	icon_url = "https://cdn.discordapp.com/attachments/1049298549550100480/1287452387660791900/browser_UtXYhWxGEZ.png?ex=673c15b8&is=673ac438&hm=17d75b172b3da57164549e1523d4f20ad5ffb494643f0b6ee3cc8c71b1706a09&format=webp&"
 
 /datum/controller/subsystem/ticker/proc/send_roundend_stats_tgs_message(popcount)
 	if (!CONFIG_GET(string/roundend_status_enabled))
@@ -41,11 +49,16 @@
 	send2chat(message, channel_tag)
 
 	if (CONFIG_GET(string/roundend_chat_command_enabled))
-		var/commands_string = CONFIG_GET(string/random_bot_commands)
-		var/list/random_commands = list()
-		for (var/command in splittext(commands_string, ","))
-			random_commands += trim(command)
-		var/random_command = pick(random_commands)
-		var/command_with_prefix = "!" + random_command
-		var/datum/tgs_message_content/random_message = new(command_with_prefix)
+		var/list/random_links = init_discord_videos()
+		if (!random_links || !length(random_links))
+			send2chat("Ошибка: не удалось загрузить ссылки из FUNNY_VIDEOS_FILE_NAME", channel_tag)
+			return
+
+		// Выбираем случайную ссылку
+		var/random_link = pick(random_links)
+		var/datum/tgs_message_content/random_message = new(random_link)
+
+		// Отправляем сообщение
 		send2chat(random_message, channel_tag)
+
+#undef FUNNY_VIDEOS_FILE_NAME
