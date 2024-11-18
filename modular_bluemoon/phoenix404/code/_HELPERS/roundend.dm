@@ -1,4 +1,6 @@
 #define FUNNY_VIDEOS_FILE_NAME "config/bluemoon/discord_videos.json"
+#define BOT_NAME global.config.Get(/datum/config_entry/string/bot_name)
+#define BOT_ICON global.config.Get(/datum/config_entry/string/bot_icon)
 
 /proc/init_discord_videos()
 	if (!fexists(FUNNY_VIDEOS_FILE_NAME))
@@ -14,9 +16,25 @@
 
 	return contents
 
-/datum/tgs_chat_embed/provider/author/glob
-	name = "Цунода вещает"
-	icon_url = "https://cdn.discordapp.com/attachments/1049298549550100480/1287452387660791900/browser_UtXYhWxGEZ.png?ex=673c15b8&is=673ac438&hm=17d75b172b3da57164549e1523d4f20ad5ffb494643f0b6ee3cc8c71b1706a09&format=webp&"
+/proc/LoadTGSBotConfig()
+	return list(
+		"name" = CONFIG_GET(string/bot_name),
+		"icon" = CONFIG_GET(string/bot_icon)
+	)
+
+/proc/CreateAuthor()
+	var/list/config = LoadTGSBotConfig()  // Загружаем конфигурацию
+	if (!config)
+		CRASH("Ошибка: конфигурация не загружена.")
+
+	var/name = config["name"] || "Default Name"
+	var/icon = config["icon"] || "https://default.icon.url"
+
+	// Создаём объект и передаём имя в конструктор
+	var/datum/tgs_chat_embed/provider/author/new_author = new /datum/tgs_chat_embed/provider/author(name)
+	new_author.icon_url = icon
+	return new_author
+
 
 /datum/controller/subsystem/ticker/proc/send_roundend_stats_tgs_message(popcount)
 	if (!CONFIG_GET(string/roundend_status_enabled))
@@ -29,16 +47,16 @@
 	var/station_integrity = popcount["station_integrity"]
 	var/channel_tag = CONFIG_GET(string/chat_roundend_notice_tag)
 
-	var/datum/tgs_message_content/message = new(":blushcat:")
+	var/datum/tgs_message_content/message = new("Итоги раунда:")
 	var/datum/tgs_chat_embed/structure/embed = new()
 	message.embed = embed
-	embed.author = new /datum/tgs_chat_embed/provider/author/glob()
+	embed.author = CreateAuthor()
 	embed.title = "Статистика окончания раунда"
-	embed.description = " "
+	embed.description = ":blushcat:"
 	embed.colour = "#34a5c2"
 
 	var/datum/tgs_chat_embed/field/survivors_field = new(":god_save_me:Выжившие", "[num_survivors]")
-	var/datum/tgs_chat_embed/field/deads_field = new(":wolf_skull:Погибшие:[num_deads]")
+	var/datum/tgs_chat_embed/field/deads_field = new(":wolf_skull:Погибшие", "[num_deads]")
 	var/datum/tgs_chat_embed/field/escapees_field = new(":door:Эвакуировавшиеся", "[num_escapees]")
 	var/datum/tgs_chat_embed/field/shuttle_escapees_field = new(":rocket:Эвакуировались на шаттле", "[num_shuttle_escapees]")
 	var/datum/tgs_chat_embed/field/another_escapees_field = new(":ambulance:Эвакуировались другими способами", "[num_another_escapees]")
@@ -54,24 +72,9 @@
 			send2chat("Ошибка: не удалось загрузить ссылки из FUNNY_VIDEOS_FILE_NAME", channel_tag)
 			return
 
-		var/random_link = null
-		var/attempts = 0
-		while (attempts < 5)
-			random_link = pick(random_links)
-			var/discord_count = count_substring_occurrences(random_link, "discordapp").len
-			if (discord_count <= 1)
-				break
-			attempts++
+		var/random_link = pick(random_links)
 		var/datum/tgs_message_content/random_message = new(random_link)
 
 		send2chat(random_message, channel_tag)
-
-/proc/count_substring_occurrences(haystack, needle)
-	var/pos = findtext(haystack, needle)
-	var/count = 0
-	while (pos)
-		count++
-		pos = findtext(haystack, needle, pos + length(needle))
-	return count
 
 #undef FUNNY_VIDEOS_FILE_NAME
