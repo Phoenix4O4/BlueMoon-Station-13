@@ -97,20 +97,6 @@
 
 				qdel(query_update_whitelist)
 
-				// Insert into whitelist_log
-				var/datum/db_query/query_add_log = SSdbcore.NewQuery({"
-					INSERT INTO [format_table_name("whitelist_log")] (ckey, manager, manager_id, action, date, comment)
-					VALUES (:ckey, :manager, :manager_id, :action, :date, :comment)
-				"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id, "action" = "re-add", "date" = world.timeofday, "comment" = comment))
-
-				if(!query_add_log.Execute())
-					. += "Failed to log action for ckey `[key]`\n"
-					. += query_add_log.ErrorMsg()
-					qdel(query_add_log)
-					return
-
-				qdel(query_add_log)
-
 				. += "`[key]` has been re-added to the whitelist!\n"
 				if(comment != "")
 					. += "Comment: [comment]\n"
@@ -130,20 +116,6 @@
 				return
 
 			qdel(query_add_whitelist)
-
-			// Insert into whitelist_log
-			var/datum/db_query/query_add_log = SSdbcore.NewQuery({"
-				INSERT INTO [format_table_name("whitelist_log")] (ckey, manager, manager_id, action, date, comment)
-				VALUES (:ckey, :manager, :manager_id, :action, :date, :comment)
-			"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id, "action" = "add", "date" = world.timeofday, "comment" = comment))
-
-			if(!query_add_log.Execute())
-				. += "Failed to log action for ckey `[key]`\n"
-				. += query_add_log.ErrorMsg()
-				qdel(query_add_log)
-				return
-
-			qdel(query_add_log)
 
 			. += "`[key]` has been added to the whitelist!\n"
 			if(comment != "")
@@ -176,20 +148,6 @@
 				return
 
 			qdel(query_remove_whitelist)
-
-			// Insert into whitelist_log
-			var/datum/db_query/query_add_log = SSdbcore.NewQuery({"
-				INSERT INTO [format_table_name("whitelist_log")] (ckey, manager, manager_id, action, date, comment)
-				VALUES (:ckey, :manager, :manager_id, :action, :date, :comment)
-			"}, list("ckey" = key, "manager" = sender.friendly_name, "manager_id" = sender.id, "action" = "remove", "date" = world.timeofday, "comment" = comment))
-
-			if(!query_add_log.Execute())
-				. += "Failed to log action for ckey `[key]`\n"
-				. += query_add_log.ErrorMsg()
-				qdel(query_add_log)
-				return
-
-			qdel(query_add_log)
 
 			. += "`[key]` has been removed from the whitelist!\n"
 			if(comment != "")
