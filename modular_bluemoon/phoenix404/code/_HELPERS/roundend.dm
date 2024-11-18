@@ -58,12 +58,20 @@
 		var/attempts = 0
 		while (attempts < 5)
 			random_link = pick(random_links)
-			var/discord_count = findall(random_link, "discordapp").len
+			var/discord_count = count_substring_occurrences(random_link, "discordapp").len
 			if (discord_count <= 1)
 				break
 			attempts++
 		var/datum/tgs_message_content/random_message = new(random_link)
 
 		send2chat(random_message, channel_tag)
+
+/proc/count_substring_occurrences(haystack, needle)
+	var/pos = findtext(haystack, needle)
+	var/count = 0
+	while (pos)
+		count++
+		pos = findtext(haystack, needle, pos + length(needle))
+	return count
 
 #undef FUNNY_VIDEOS_FILE_NAME
