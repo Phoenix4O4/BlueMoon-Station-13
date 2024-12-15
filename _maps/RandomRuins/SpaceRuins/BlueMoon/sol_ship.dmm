@@ -527,7 +527,7 @@
 /obj/structure/sign/flag/terragov{
 	pixel_y = 32
 	},
-/obj/effect/mob_spawn/human/fugitive/spacepol{
+/obj/effect/mob_spawn/human/solfed/diplomacy/secret_service{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -1213,6 +1213,9 @@
 	dir = 1;
 	icon_state = "delivery_red"
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/inteq_forgotten_ship)
 "hm" = (
@@ -1542,7 +1545,7 @@
 	dir = 1;
 	icon_state = "delivery_red"
 	},
-/obj/machinery/suit_storage_unit/ftu_combat,
+/obj/machinery/suit_storage_unit/sol_combat,
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/space/has_grav/inteq_forgotten_vault)
 "jo" = (
@@ -1938,7 +1941,8 @@
 "ll" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2{
 	dir = 1;
-	piping_layer = 3
+	piping_layer = 3;
+	on = 0
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/inteq_forgotten_atmos)
@@ -2001,7 +2005,7 @@
 /area/ruin/space/has_grav/inteq_forgotten_outpost)
 "lI" = (
 /obj/machinery/porta_turret/syndicate{
-	faction = list("InteQ");
+	faction = list("neutral");
 	pixel_y = 32
 	},
 /turf/closed/mineral/random,
@@ -2538,7 +2542,8 @@
 "ox" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/o2{
 	dir = 1;
-	piping_layer = 3
+	piping_layer = 3;
+	on = 0
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/inteq_forgotten_atmos)
@@ -3193,7 +3198,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/syndicate/inteq,
+/obj/machinery/suit_storage_unit/sol_combat/elite,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/inteq_forgotten_ship)
 "se" = (
@@ -3247,9 +3252,6 @@
 "sm" = (
 /obj/structure/closet,
 /obj/item/coin/antagtoken,
-/obj/item/encryptionkey/inteq,
-/obj/item/encryptionkey/inteq,
-/obj/item/encryptionkey/inteq,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -3312,6 +3314,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/storage/belt/esabre_belt,
 /obj/item/paper/fluff/ruins/forgottenship/missionobj/sol,
+/obj/item/paper/fluff/ruins/forgottenship/password,
 /turf/open/floor/carpet/royalblue,
 /area/ruin/space/has_grav/inteq_forgotten_ship)
 "st" = (
@@ -3603,7 +3606,7 @@
 /obj/machinery/porta_turret/syndicate/energy{
 	armor = list("melee" = 80, "bullet" = 40, "laser" = 60, "energy" = 60, "bomb" = 60, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100);
 	dir = 4;
-	faction = list("InteQ");
+	faction = list("neutral");
 	name = "СИЗО-37 Ship Turret";
 	shot_delay = 10
 	},
@@ -4954,9 +4957,7 @@
 /obj/structure/sign/flag/terragov{
 	pixel_y = 32
 	},
-/obj/effect/mob_spawn/human/fugitive/spacepol{
-	dir = 8
-	},
+/obj/effect/mob_spawn/human/solfed/diplomacy/secret_service,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/inteq_forgotten_ship)
 "CJ" = (
@@ -5296,7 +5297,8 @@
 /area/ruin/space/has_grav/inteq_forgotten_medbay)
 "Ez" = (
 /obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 4
+	dir = 4;
+	on = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5367,7 +5369,7 @@
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
-	id = "colossus_port"
+	id = "colossus_starboard"
 	},
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -5981,7 +5983,7 @@
 "IP" = (
 /obj/machinery/porta_turret/syndicate{
 	dir = 8;
-	faction = list("InteQ");
+	faction = list("neutral");
 	pixel_x = 31
 	},
 /turf/open/floor/holofloor/asteroid,
@@ -8282,7 +8284,8 @@
 "Wt" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/plasma{
 	dir = 1;
-	piping_layer = 3
+	piping_layer = 3;
+	on = 0
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/inteq_forgotten_atmos)
@@ -8348,7 +8351,7 @@
 /area/ruin/space/has_grav/inteq_forgotten_ship)
 "WL" = (
 /obj/machinery/porta_turret/syndicate{
-	faction = list("InteQ");
+	faction = list("neutral");
 	pixel_y = 32
 	},
 /turf/open/floor/holofloor/asteroid,
@@ -8362,7 +8365,7 @@
 /area/ruin/space/has_grav/inteq_forgotten_ship)
 "WP" = (
 /obj/machinery/porta_turret/syndicate{
-	faction = list("InteQ");
+	faction = list("neutral");
 	pixel_y = 32
 	},
 /turf/template_noop,
@@ -8851,7 +8854,7 @@
 /obj/machinery/porta_turret/syndicate/energy{
 	armor = list("melee" = 80, "bullet" = 40, "laser" = 60, "energy" = 60, "bomb" = 60, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100);
 	dir = 4;
-	faction = list("InteQ");
+	faction = list("neutral");
 	name = "СИЗО-37 Ship Turret";
 	shot_delay = 10
 	},
@@ -13822,7 +13825,7 @@ sz
 sz
 sz
 sz
-RV
+sz
 sz
 sz
 gb
@@ -14047,18 +14050,18 @@ sz
 sz
 sz
 sz
+sz
+sz
+sz
+ng
+ng
+lO
+lO
+ye
+ye
 RV
 sz
-sz
-ng
-ng
-lO
-lO
-ye
-ye
-sz
-sz
-sz
+RV
 gb
 gb
 gb

@@ -556,6 +556,7 @@
 	outfit = /datum/outfit/ert/sol_soldier
 	assignedrole = "Solar Federation Operative"
 	can_load_appearance = TRUE
+	loadout_enabled = TRUE
 
 /obj/effect/mob_spawn/human/solfed/demoman
 	name = "Solar Federation Support"
@@ -571,6 +572,12 @@
 	flavour_text = "Вы - дипломат, который должен обеспечить мирное сосуществование с другими расами. Вы - не боец, но вы должны быть готовы защищать себя и своих коллег."
 	important_info = "Защитите корабль и Адмирала ценой своей жизни."
 	outfit = /datum/outfit/sol_diplomacy
+
+/obj/effect/mob_spawn/human/solfed/diplomacy/secret_service
+	name = "Solar Federation Secret Service"
+	short_desc = "Вы - член Секретной Службы Солнечной Федерации."
+	flavour_text = "Вы - дипломат, который должен обеспечить мирное сосуществование с другими расами. Вы - боец, вы должны быть готовы защищать себя и своих коллег."
+	outfit = /datum/outfit/sol_diplomacy/secret_service
 
 /obj/effect/mob_spawn/human/solfed/diplomacy/slut
 	name = "Solar Federation Secretary (SLUT)"
